@@ -143,14 +143,19 @@ class viewSort extends loginSQL implements ActionListener {
 		else if((JButton)e.getSource()==singlePartWindow.columnCPU[6]) 
 			orderBy=sorts("tdp",6);	
 		try {
-			if(searchSinglePart.ordertext[1].equals("")&&searchSinglePart.ordertext[1].length()==0) {
-				ordersqls="select * from "+searchSinglePart.ordertext[0]+" order by "+orderBy;
-				ps=con.prepareStatement(ordersqls,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			try {
+				if(searchSinglePart.ordertext[1].equals("")&&searchSinglePart.ordertext[1].length()==0) {
+					ordersqls="select * from "+searchSinglePart.ordertext[0]+" order by "+orderBy;
+					ps=con.prepareStatement(ordersqls,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+				}
+				else {
+					ordersqls="select * from "+searchSinglePart.ordertext[0]+" where PARTNAME like '%'||?||'%' order by "+orderBy;
+					ps=con.prepareStatement(ordersqls,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+					ps.setString(1, searchSinglePart.ordertext[1]);
+				}
 			}
-			else {
-				ordersqls="select * from "+searchSinglePart.ordertext[0]+" where PARTNAME like '%'||?||'%' order by "+orderBy;
-				ps=con.prepareStatement(ordersqls,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-				ps.setString(1, searchSinglePart.ordertext[1]);
+			catch(NullPointerException g){
+				return;
 			}
 			rs=ps.executeQuery();
 			new rsdataSinglePart(rs,searchSinglePart.ordertext[0]);

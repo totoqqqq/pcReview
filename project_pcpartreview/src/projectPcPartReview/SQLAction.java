@@ -14,7 +14,9 @@ class loginSQL {
 	static int level=0;
 	loginSQL(){
 		try {
-			String url="jdbc:oracle:thin:@localhost:1521:orcl",user="system",pass="oracle";
+//			String url="jdbc:oracle:thin:@localhost:1521:orcl",user="system",pass="oracle";
+//			집에선 orcl / 학원에선 xe
+			String url="jdbc:oracle:thin:@localhost:1521:xe",user="system",pass="oracle";
 			con=DriverManager.getConnection(url, user, pass);
 		}
 		catch(SQLException e){
