@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 class singlePartWindow extends JFrame{
 	//테스트 버전
 	private static final long serialVersionUID = 1L;
@@ -36,7 +37,8 @@ class singlePartWindow extends JFrame{
 			singlePartViewPage=new JTextField(5);
 	static JLabel singlePartTitle=new JLabel();
 	static boolean[] columnNameCPUSort=new boolean[columnNameCPU.length];
-	Font defaultKor=setFonts.defaultK,titleKor=setFonts.title,button=setFonts.button;
+	Font defaultKor=setFonts.defaultK,titleKor=setFonts.title,button=setFonts.button,message=setFonts.massage,
+			messageButton=setFonts.massageButton;
 	objFontAndSize objfs=new objFontAndSize();
 	singlePartWindow(){
 		super("PC부품 비교 평가 시스템");
@@ -47,10 +49,10 @@ class singlePartWindow extends JFrame{
 		mainWindowOption();
 	}
 	void singlePartMainNorthOption(){
-		singlePartMainNorth.setBorder(BorderFactory.createEmptyBorder(40,0,20,0));;
+		singlePartMainNorth.setBorder(BorderFactory.createEmptyBorder(20,0,10,0));
 		singlePartMainNorthTop.add(singlePartTitle);
+		singlePartMainNorthBot.setBorder(BorderFactory.createEmptyBorder(10,0,0,0));
 		singlePartMainNorthBot.add(partComboNorth);
-		singlePartTitle.setFont(titleKor);
 		singlePartMainNorthObjectOption();
 	}
 	void singlePartMainNorthObjectOption() {
@@ -98,8 +100,9 @@ class singlePartWindow extends JFrame{
 		singlePartViewLeft.setIcon(new ImageIcon(getClass().getResource("../resource/previous.png")));
 		singlePartViewLeft.setContentAreaFilled(false);
 		singlePartViewLeft.addActionListener(new viewMovePage());
-		objfs.addSetSize(singlePartMainSouthBot,singlePartViewPage,defaultKor,60,30);
+		objfs.addSetSize(singlePartMainSouthBot,singlePartViewPage,new Font("굴림",Font.BOLD,20),60,30);
 		singlePartViewPage.setEnabled(false);
+		singlePartViewPage.setBackground(new Color(238,238,238));
 		singlePartViewPage.setText("1/1");
 		singlePartViewPage.setHorizontalAlignment(JTextField.CENTER);
 		singlePartViewPage.setDisabledTextColor(Color.BLACK);
@@ -121,6 +124,8 @@ class singlePartWindow extends JFrame{
 		singlePartMainSouth.add(singlePartMainSouthBot);
 	}
 	void mainWindowOption(){
+		UIManager.put("OptionPane.messageFont",message);
+		UIManager.put("OptionPane.buttonFont",messageButton);
 		setSize(960,600);
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -139,7 +144,7 @@ class singlePartUI {
 			singlePartWindow.singlePartLoad.setEnabled(false);
 			singlePartWindow.singlePartSave.setEnabled(false);
 			singlePartWindow.singlePartDelete.setEnabled(false);
-			singlePartWindow.singlePartTitle.setText("단일 부품 비교(사용자)");
+			singlePartWindow.singlePartTitle.setIcon(new ImageIcon(getClass().getResource("../resource/singlePartGuestTitle.png")));
 		}
 		else if(userlevel==9) {
 			singlePartWindow.partComboSouth.setEnabled(true);
@@ -147,7 +152,7 @@ class singlePartUI {
 			singlePartWindow.singlePartLoad.setEnabled(true);
 			singlePartWindow.singlePartSave.setEnabled(true);
 			singlePartWindow.singlePartDelete.setEnabled(true);
-			singlePartWindow.singlePartTitle.setText("단일 부품 비교(관리자)");
+			singlePartWindow.singlePartTitle.setIcon(new ImageIcon(getClass().getResource("../resource/singlePartAdminTitle.png")));
 		}
 	}
 }

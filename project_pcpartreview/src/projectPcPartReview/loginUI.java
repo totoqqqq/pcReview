@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 class loginWindow extends JFrame{
 	//테스트 버전
@@ -23,14 +24,15 @@ class loginWindow extends JFrame{
 			,loginMCCenter=new JPanel(new GridLayout (2,1)),loginMCLeftTop=new JPanel(new FlowLayout(FlowLayout.CENTER))
 			,loginMCLeftBot=new JPanel(new FlowLayout(FlowLayout.CENTER)),loginMCCenterTop=new JPanel(new FlowLayout(FlowLayout.CENTER))
 			,loginMCCenterBot=new JPanel(new FlowLayout(FlowLayout.CENTER)),loginMCRight=new JPanel(new FlowLayout(FlowLayout.CENTER));
-	JLabel loginTitle = new JLabel("로그인 테스트"),loginIDLabel = new JLabel("아이디"),loginPassLabel = new JLabel("암호");
+	JLabel loginTitle = new JLabel(),loginIDLabel = new JLabel(),loginPassLabel = new JLabel();
 	static JTextField loginIDText=new JTextField();
 	static JPasswordField loginPassText=new JPasswordField();
 	JButton loginButton=new JButton(new ImageIcon(getClass().getResource("../resource/login.png")));
 	objFontAndSize objfs=new objFontAndSize();
-	Font defaultKor=setFonts.defaultK,titleKor=setFonts.title,button=setFonts.button;
+	Font defaultKor=setFonts.defaultK,titleKor=setFonts.title,button=setFonts.button,message=setFonts.massage,
+			messageButton=setFonts.massageButton;
 	loginWindow() {
-		super("로그인 테스트");
+		super("PC 비교 평가 시스템");
 		new setFonts();
 		loginMainPanelOption();
 		loginMainNorthOption();
@@ -45,6 +47,8 @@ class loginWindow extends JFrame{
 	}
 	void loginMainNorthOption(){
 		loginMainNorth.add(loginTitle);
+		loginTitle.setToolTipText("PC 비교 평가 시스템 회원 로그인");
+		loginTitle.setIcon(new ImageIcon(getClass().getResource("../resource/loginTitle.png")));
 		loginTitle.setBorder(BorderFactory.createEmptyBorder(5,0,0,0));
 		loginTitle.setFont(titleKor);
 	}
@@ -60,17 +64,25 @@ class loginWindow extends JFrame{
 	}
 	void loginMainCenterObjectOption() {
 		loginMCLeftTop.add(loginIDLabel);
-		loginIDLabel.setFont(defaultKor);
+		loginIDLabel.setIcon(new ImageIcon(getClass().getResource("../resource/id.png")));
+		loginIDLabel.setToolTipText("ID를 입력하세요.");
 		loginMCLeftBot.add(loginPassLabel);
-		loginPassLabel.setFont(defaultKor);
-		objfs.addSetSize(loginMCCenterTop, loginIDText, defaultKor, 120, 30);
-		objfs.addSetSize(loginMCCenterBot, loginPassText, defaultKor, 120, 30);
+		loginPassLabel.setIcon(new ImageIcon(getClass().getResource("../resource/password.png")));
+		loginPassLabel.setToolTipText("Password를 입력하세요.");
+		objfs.addSetSize(loginMCCenterTop, loginIDText, defaultKor, 140, 30);
+		loginIDText.setToolTipText("ID를 입력하세요.");
+		objfs.addSetSize(loginMCCenterBot, loginPassText, defaultKor, 140, 30);
+		loginPassText.setToolTipText("Password를 입력하세요.");
+		loginPassText.addKeyListener(new loginEnterAction());
 		objfs.addSetSize(loginMCRight, loginButton, button, 70, 70);
-		loginButton.setMargin(new Insets(20,0,20,0));
+		loginButton.setMargin(new Insets(10,0,10,0));
 		loginButton.addActionListener(new loginAction());
+		loginButton.setToolTipText("로그인");
 	}
 	void mainOption(){
-		setSize(320,170);
+		UIManager.put("OptionPane.messageFont",message);
+		UIManager.put("OptionPane.buttonFont",messageButton);
+		setSize(320,190);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -81,6 +93,5 @@ class loginWindow extends JFrame{
 public class loginUI {
 	static loginWindow loginW=new loginWindow();
 	public static void main(String[] args) {
-		
 	}
 }

@@ -34,7 +34,7 @@ public class objFontAndSize{
 		JPanel.add(JButton);
 		JButton.setFont(fontSet);
 		JButton.setPreferredSize(new Dimension(weight,height));
-		JButton.setBackground(Color.LIGHT_GRAY);
+		JButton.setBackground(new Color(153,204,255));
 		JButton.setBorderPainted(false);
 		JButton.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 	}
