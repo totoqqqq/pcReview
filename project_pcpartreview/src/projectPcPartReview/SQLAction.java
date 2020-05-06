@@ -27,7 +27,7 @@ class loginSQL {
 }
 class searchSinglePart extends loginSQL{
 	static String[] ordertext=new String[2];
-	String ordersql=null;
+	String ordersql="";
 	searchSinglePart(){
 		ordertext[0]=singlePartWindow.partComboNorth.getSelectedItem().toString();
 		ordertext[1]=singlePartWindow.singlePartSearchTextNorth.getText().toString();
@@ -44,8 +44,9 @@ class searchSinglePart extends loginSQL{
 			rs=ps.executeQuery();
 			new rsdataSinglePart(rs,ordertext[0]);
 		}
-		catch(SQLException e) {
+		catch(SQLException|NullPointerException e) {
 			JOptionPane.showMessageDialog(singlePartUI.spw,"Error_STS_01","search error",JOptionPane.WARNING_MESSAGE,null);
+			return;
 			//SQL singlePart table search error
 		}
 	}

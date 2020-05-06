@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -26,9 +27,9 @@ class singlePartWindow extends JFrame{
 	static JComboBox<String> partComboNorth=new JComboBox<String>(partList)
 			,partComboSouth=new JComboBox<String>(partList);
 	static JButton[] columnCPU=new JButton[columnNameCPU.length];
-	static JButton singlePartSearch=new JButton("검색"),singlePartSave=new JButton("저장"),
-			singlePartLoad=new JButton("불러오기"),singlePartDelete=new JButton("삭제"),
-			singlePartViewLeft=new JButton("◀"),singlePartViewRight=new JButton("▶");
+	static JButton singlePartSearch=new JButton("검색"),singlePartSave=new JButton("저장하기"),
+			singlePartLoad=new JButton("불러오기"),singlePartDelete=new JButton("삭제하기"),
+			singlePartViewLeft=new JButton(),singlePartViewRight=new JButton();
 	static JCheckBox[] singlePartListCheck=new JCheckBox[6];
 	static JTextField[] singlePartListText=new JTextField[6];
 	static JTextField singlePartSearchTextNorth=new JTextField(),singlePartSearchTextSouth=new JTextField(),
@@ -49,16 +50,15 @@ class singlePartWindow extends JFrame{
 		singlePartMainNorth.setBorder(BorderFactory.createEmptyBorder(40,0,20,0));;
 		singlePartMainNorthTop.add(singlePartTitle);
 		singlePartMainNorthBot.add(partComboNorth);
-		singlePartMainNorthBot.add(singlePartSearchTextNorth);
-		singlePartMainNorthBot.add(singlePartSearch);
 		singlePartTitle.setFont(titleKor);
 		singlePartMainNorthObjectOption();
 	}
 	void singlePartMainNorthObjectOption() {
 		objfs.setSize(partComboNorth,defaultKor,80,30);
-		objfs.setSize(singlePartSearchTextNorth,defaultKor,580,31);
+		objfs.addSetSize(singlePartMainNorthBot,singlePartSearchTextNorth,defaultKor,580,31);
 		singlePartSearchTextNorth.setToolTipText(partComboNorth.getSelectedItem().toString()+"명을 전체 혹은 일부 입력해주세요");
-		objfs.setSize(singlePartSearch,button,80,30);
+		objfs.addSetSize(singlePartMainNorthBot,singlePartSearch,button,80,30);
+		singlePartSearch.setIcon(new ImageIcon(getClass().getResource("../resource/search.png")));
 		singlePartSearch.addActionListener(new spSearch());
 	}
 	void singlePartMainCenterOption(){
@@ -81,34 +81,31 @@ class singlePartWindow extends JFrame{
 	}
 	void singlePartMainSouthOption() {
 		singlePartMainSouthTop.add(partComboSouth);
-		singlePartMainSouthTop.add(singlePartSearchTextSouth);
-		singlePartMainSouthTop.add(singlePartLoad);
-		singlePartMainSouthTop.add(singlePartSave);
-		singlePartMainSouthTop.add(singlePartDelete);
-		singlePartMainSouthBot.add(singlePartViewLeft);
-		singlePartMainSouthBot.add(singlePartViewPage);
-		singlePartMainSouthBot.add(singlePartViewRight);
 		singlePartMainSouthTop.setBorder(BorderFactory.createEmptyBorder(0,30,30,0));
-		singlePartMainSouthObjectOption();
-	}
-	void singlePartMainSouthObjectOption() {
 		objfs.setSize(partComboSouth,defaultKor,80,30);
-		objfs.setSize(singlePartSearchTextSouth,defaultKor,370,31);
+		objfs.addSetSize(singlePartMainSouthTop,singlePartSearchTextSouth,defaultKor,370,31);
 		singlePartSearchTextSouth.setToolTipText("부품명/제조사/코어수/GHZ/칩셋/TDP 항목을 /으로 구분하여 입력해주세요.");
-		objfs.setSize(singlePartLoad,button,110,30);
+		objfs.addSetSize(singlePartMainSouthTop,singlePartLoad,button,110,30);
 		singlePartLoad.addActionListener(new spIUD());
-		objfs.setSize(singlePartSave,button,110,30);
+		singlePartLoad.setIcon(new ImageIcon(getClass().getResource("../resource/load.png")));
+		objfs.addSetSize(singlePartMainSouthTop,singlePartSave,button,110,30);
 		singlePartSave.addActionListener(new spIUD());
-		objfs.setSize(singlePartDelete,button,110,30);
+		singlePartSave.setIcon(new ImageIcon(getClass().getResource("../resource/save.png")));
+		objfs.addSetSize(singlePartMainSouthTop,singlePartDelete,button,110,30);
 		singlePartDelete.addActionListener(new spIUD());
-		objfs.setSize(singlePartViewLeft,button,60,30);
+		singlePartDelete.setIcon(new ImageIcon(getClass().getResource("../resource/delete.png")));
+		objfs.addSetSize(singlePartMainSouthBot,singlePartViewLeft,button,60,30);
+		singlePartViewLeft.setIcon(new ImageIcon(getClass().getResource("../resource/previous.png")));
+		singlePartViewLeft.setContentAreaFilled(false);
 		singlePartViewLeft.addActionListener(new viewMovePage());
-		objfs.setSize(singlePartViewPage,defaultKor,60,30);
+		objfs.addSetSize(singlePartMainSouthBot,singlePartViewPage,defaultKor,60,30);
 		singlePartViewPage.setEnabled(false);
 		singlePartViewPage.setText("1/1");
 		singlePartViewPage.setHorizontalAlignment(JTextField.CENTER);
 		singlePartViewPage.setDisabledTextColor(Color.BLACK);
-		objfs.setSize(singlePartViewRight,button,60,30);
+		objfs.addSetSize(singlePartMainSouthBot,singlePartViewRight,button,60,30);
+		singlePartViewRight.setIcon(new ImageIcon(getClass().getResource("../resource/next.png")));
+		singlePartViewRight.setContentAreaFilled(false);
 		singlePartViewRight.addActionListener(new viewMovePage());
 	}
 	void singlePartMainPanelOption(){

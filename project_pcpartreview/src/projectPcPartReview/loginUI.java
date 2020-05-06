@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,12 +26,12 @@ class loginWindow extends JFrame{
 	JLabel loginTitle = new JLabel("로그인 테스트"),loginIDLabel = new JLabel("아이디"),loginPassLabel = new JLabel("암호");
 	static JTextField loginIDText=new JTextField();
 	static JPasswordField loginPassText=new JPasswordField();
-	JButton loginButton=new JButton("로그인");
+	JButton loginButton=new JButton(new ImageIcon(getClass().getResource("../resource/login.png")));
 	objFontAndSize objfs=new objFontAndSize();
 	Font defaultKor=setFonts.defaultK,titleKor=setFonts.title,button=setFonts.button;
-	
 	loginWindow() {
 		super("로그인 테스트");
+		new setFonts();
 		loginMainPanelOption();
 		loginMainNorthOption();
 		loginMainCenterOption();
