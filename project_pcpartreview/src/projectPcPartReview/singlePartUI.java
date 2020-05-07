@@ -50,6 +50,7 @@ class singlePartWindow extends JFrame{
 	}
 	void singlePartMainNorthOption(){
 		singlePartMainNorth.setBorder(BorderFactory.createEmptyBorder(20,0,10,0));
+		singlePartMainNorth.setBackground(new Color(255,255,255));
 		singlePartMainNorthTop.add(singlePartTitle);
 		singlePartMainNorthBot.setBorder(BorderFactory.createEmptyBorder(10,0,0,0));
 		singlePartMainNorthBot.add(partComboNorth);
@@ -75,6 +76,7 @@ class singlePartWindow extends JFrame{
 		for(int i=1;i<=singlePartListText.length;i++) {
 			singlePartMainCenterList[i].add(singlePartListCheck[i-1]=new JCheckBox());
 			singlePartListCheck[i-1].setToolTipText("수정시에는 하나만 체크 후 '불러오기', 삭제시에는 삭제 할 데이터 전부 체크 후 '삭제' 눌러주세요");
+			singlePartListCheck[i-1].setBackground(Color.WHITE);
 			objfs.addSetSize(singlePartMainCenterList[i],singlePartListText[i-1]=new JTextField(),defaultKor,800,30);
 			singlePartListText[i-1].setEnabled(false);
 			singlePartListText[i-1].setHorizontalAlignment(JTextField.CENTER);
@@ -102,8 +104,8 @@ class singlePartWindow extends JFrame{
 		singlePartViewLeft.addActionListener(new viewMovePage());
 		objfs.addSetSize(singlePartMainSouthBot,singlePartViewPage,new Font("굴림",Font.BOLD,20),60,30);
 		singlePartViewPage.setEnabled(false);
-		singlePartViewPage.setBackground(new Color(238,238,238));
 		singlePartViewPage.setText("1/1");
+		singlePartViewPage.setBorder(BorderFactory.createEmptyBorder());
 		singlePartViewPage.setHorizontalAlignment(JTextField.CENTER);
 		singlePartViewPage.setDisabledTextColor(Color.BLACK);
 		objfs.addSetSize(singlePartMainSouthBot,singlePartViewRight,button,60,30);
@@ -114,14 +116,17 @@ class singlePartWindow extends JFrame{
 	void singlePartMainPanelOption(){
 		add(singlePartMain);
 		singlePartMain.add(singlePartMainNorth,BorderLayout.NORTH);
+		singlePartMainNorth.setBackground(Color.WHITE);
 		singlePartMain.add(singlePartMainCenter,BorderLayout.CENTER);
+		singlePartMainCenter.setBackground(Color.WHITE);
 		singlePartMain.add(singlePartMainSouth,BorderLayout.SOUTH);
-		singlePartMainNorth.add(singlePartMainNorthTop);
-		singlePartMainNorth.add(singlePartMainNorthBot);
+		singlePartMainSouth.setBackground(Color.WHITE);
+		objfs.addSetSize(singlePartMainNorth,singlePartMainNorthTop);
+		objfs.addSetSize(singlePartMainNorth,singlePartMainNorthBot);
 		for(int i=0;i<singlePartMainCenterList.length;i++)
-			singlePartMainCenter.add(singlePartMainCenterList[i]=new JPanel(new FlowLayout(FlowLayout.CENTER)));
-		singlePartMainSouth.add(singlePartMainSouthTop);
-		singlePartMainSouth.add(singlePartMainSouthBot);
+			objfs.addSetSize(singlePartMainCenter, singlePartMainCenterList[i]=new JPanel(new FlowLayout(FlowLayout.CENTER)), Color.WHITE);
+		objfs.addSetSize(singlePartMainSouth,singlePartMainSouthTop);
+		objfs.addSetSize(singlePartMainSouth,singlePartMainSouthBot);
 	}
 	void mainWindowOption(){
 		UIManager.put("OptionPane.messageFont",message);
@@ -138,7 +143,7 @@ class singlePartUI {
 	int userlevel=0;
 	singlePartUI(int level) {
 		userlevel=level;
-		if(userlevel==1) {
+		if(userlevel>=0&&userlevel<9) {
 			singlePartWindow.partComboSouth.setEnabled(false);
 			singlePartWindow.singlePartSearchTextSouth.setEnabled(false);
 			singlePartWindow.singlePartLoad.setEnabled(false);
@@ -153,6 +158,9 @@ class singlePartUI {
 			singlePartWindow.singlePartSave.setEnabled(true);
 			singlePartWindow.singlePartDelete.setEnabled(true);
 			singlePartWindow.singlePartTitle.setIcon(new ImageIcon(getClass().getResource("../resource/singlePartAdminTitle.png")));
+		}
+		else {
+			System.exit(0);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 package projectPcPartReview;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -43,7 +44,9 @@ class loginWindow extends JFrame{
 	void loginMainPanelOption(){
 		add(loginMain);
 		loginMain.add(loginMainNorth, BorderLayout.NORTH);
+		loginMainNorth.setBackground(Color.WHITE);
 		loginMain.add(loginMainCenter, BorderLayout.CENTER);
+		loginMainCenter.setBackground(Color.WHITE);
 	}
 	void loginMainNorthOption(){
 		loginMainNorth.add(loginTitle);
@@ -53,13 +56,13 @@ class loginWindow extends JFrame{
 		loginTitle.setFont(titleKor);
 	}
 	void loginMainCenterOption() {
-		loginMainCenter.add(loginMCLeft);
-		loginMainCenter.add(loginMCCenter);
-		loginMainCenter.add(loginMCRight);
-		loginMCLeft.add(loginMCLeftTop);
-		loginMCLeft.add(loginMCLeftBot);
-		loginMCCenter.add(loginMCCenterTop);
-		loginMCCenter.add(loginMCCenterBot);
+		objfs.addSetSize(loginMainCenter, loginMCLeft);
+		objfs.addSetSize(loginMainCenter, loginMCCenter);
+		objfs.addSetSize(loginMainCenter, loginMCRight);
+		objfs.addSetSize(loginMCLeft, loginMCLeftTop);
+		objfs.addSetSize(loginMCLeft, loginMCLeftBot);
+		objfs.addSetSize(loginMCCenter, loginMCCenterTop);
+		objfs.addSetSize(loginMCCenter, loginMCCenterBot);
 		loginMainCenterObjectOption();
 	}
 	void loginMainCenterObjectOption() {
