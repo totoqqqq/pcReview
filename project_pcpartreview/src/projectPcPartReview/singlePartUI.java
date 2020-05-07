@@ -32,7 +32,7 @@ class singlePartWindow extends JFrame{
 			singlePartLoad=new JButton("불러오기"),singlePartDelete=new JButton("삭제하기"),
 			singlePartViewLeft=new JButton(),singlePartViewRight=new JButton();
 	static JCheckBox[] singlePartListCheck=new JCheckBox[6];
-	static JTextField[] singlePartListText=new JTextField[6];
+	static JTextField[][] singlePartListText=new JTextField[6][7];
 	static JTextField singlePartSearchTextNorth=new JTextField(),singlePartSearchTextSouth=new JTextField(),
 			singlePartViewPage=new JTextField(5);
 	static JLabel singlePartTitle=new JLabel();
@@ -68,7 +68,7 @@ class singlePartWindow extends JFrame{
 		int count=0;
 		singlePartMainCenterList[0].setBorder(BorderFactory.createEmptyBorder(0,25,0,0));
 		for(String name:columnNameCPU) {
-			objfs.addSetSize(singlePartMainCenterList[0],columnCPU[count]=new JButton(name),button,110,30);
+			objfs.addSetSize(singlePartMainCenterList[0],columnCPU[count]=new JButton(name),button,800/7,30);
 			columnNameCPUSort[count]=false;
 			columnCPU[count].addActionListener(new viewSort());
 			count++;
@@ -77,10 +77,12 @@ class singlePartWindow extends JFrame{
 			singlePartMainCenterList[i].add(singlePartListCheck[i-1]=new JCheckBox());
 			singlePartListCheck[i-1].setToolTipText("수정시에는 하나만 체크 후 '불러오기', 삭제시에는 삭제 할 데이터 전부 체크 후 '삭제' 눌러주세요");
 			singlePartListCheck[i-1].setBackground(Color.WHITE);
-			objfs.addSetSize(singlePartMainCenterList[i],singlePartListText[i-1]=new JTextField(),defaultKor,800,30);
-			singlePartListText[i-1].setEnabled(false);
-			singlePartListText[i-1].setHorizontalAlignment(JTextField.CENTER);
-			singlePartListText[i-1].setDisabledTextColor(Color.BLACK);
+			for(int j=0;j<singlePartListText[0].length;j++) {
+				objfs.addSetSize(singlePartMainCenterList[i],singlePartListText[i-1][j]=new JTextField(),defaultKor,800/7,30);
+				singlePartListText[i-1][j].setEnabled(false);
+				singlePartListText[i-1][j].setHorizontalAlignment(JTextField.CENTER);
+				singlePartListText[i-1][j].setDisabledTextColor(Color.BLACK);
+			}
 		}
 	}
 	void singlePartMainSouthOption() {

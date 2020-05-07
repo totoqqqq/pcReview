@@ -10,12 +10,13 @@ import javax.swing.JOptionPane;
 class reset{
 	reset(){
 		for(int i=0;i<singlePartWindow.singlePartListText.length;i++) {
-			singlePartWindow.singlePartListText[i].setText(null);
 			singlePartWindow.singlePartListCheck[i].setSelected(false);
 			singlePartWindow.singlePartListCheck[i].setEnabled(true);
-			singlePartWindow.singlePartSearchTextSouth.setText(null);
-			singlePartWindow.partComboSouth.setEnabled(true);
+			for(int j=0;j<singlePartWindow.singlePartListText[0].length;j++)
+				singlePartWindow.singlePartListText[i][j].setText(null);
 		}
+		singlePartWindow.singlePartSearchTextSouth.setText(null);
+		singlePartWindow.partComboSouth.setEnabled(true);
 	}
 }
 class spSearch implements ActionListener{
@@ -53,7 +54,7 @@ class spIUD implements ActionListener{
 				JOptionPane.showMessageDialog(singlePartUI.spw,"불러 올 정보를 체크 해주세요","load error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			else if(checkCount==1&&singlePartWindow.singlePartListText[setListLocation].getText().length()!=0) {
+			else if(checkCount==1&&singlePartWindow.singlePartListText[setListLocation][1].getText().length()!=0) {
 				new importSinglePart(setListLocation);
 			}
 			else {

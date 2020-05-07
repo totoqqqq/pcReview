@@ -6,15 +6,16 @@ public class singPartIntegrity {
 	singPartIntegrity(String[] strs,int location){
 		@SuppressWarnings("unused")
 		int check=0;
-		String partname=singlePartWindow.singlePartListText[location].getText()
-				.substring(singlePartWindow.partComboNorth.getSelectedItem().toString().length()+1, 
-						singlePartWindow.singlePartListText[location].getText().toString().indexOf("\t", singlePartWindow.partComboNorth.getSelectedItem().toString().length()+1));
+		String[] partname=new String[6];
+		for(int i=0;i<partname.length;i++) {
+			partname[i]=singlePartWindow.singlePartListText[location][i+1].getText();
+		}
 		if(singlePartWindow.partComboSouth.getSelectedItem().equals("CPU")){
 			if(strs[0].length()>50) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"CPU의 부품명이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			else if(strs[0].equals(partname)==false) {
+			else if(strs[0].equals(partname[0])==false) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"불러온 CPU의 부품명을 바꿀 순 없습니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
@@ -61,12 +62,12 @@ public class singPartIntegrity {
 					JOptionPane.showMessageDialog(singlePartUI.spw,"TDP는 숫자를 입력해야 됩니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 					return;
 				}
-				new updateImportSinglePart(strs);
+				new updateImportSinglePart(strs,location);
 			}
 		}
 	}
 	singPartIntegrity(String[] strs) {
-	@SuppressWarnings("unused")
+		@SuppressWarnings("unused")
 		int check=0;
 			if(singlePartWindow.partComboSouth.getSelectedItem().equals("CPU")){
 				if(strs[0].length()>50) {
@@ -79,7 +80,7 @@ public class singPartIntegrity {
 				}
 				else if(strs[2].length()>2) {
 					JOptionPane.showMessageDialog(singlePartUI.spw,"CPU의 코어수가 너무 많습니다.","insert error",JOptionPane.WARNING_MESSAGE,null);
-					return;
+				return;
 				}
 				else if(strs[3].length()>4||Float.parseFloat(strs[3])>10) {
 					JOptionPane.showMessageDialog(singlePartUI.spw,"CPU의 GHz가 너무 높습니다.\n(10Ghz 미만 소수점 둘째자리 까지만 입력하세요.)","insert error",JOptionPane.WARNING_MESSAGE,null);
@@ -95,7 +96,7 @@ public class singPartIntegrity {
 				}
 				else {
 					try {
-						check=Integer.parseInt(strs[2]);
+					check=Integer.parseInt(strs[2]);
 					}
 					catch(NumberFormatException e) {
 						JOptionPane.showMessageDialog(singlePartUI.spw,"코어수는 숫자를 입력해야 됩니다.","insert error",JOptionPane.WARNING_MESSAGE,null);
@@ -119,7 +120,7 @@ public class singPartIntegrity {
 					new inputSinglePart(strs);
 				}
 			}
-		else if(strs.length==4) {		
+			else if(strs.length==4) {		
 		}
 	}
 }

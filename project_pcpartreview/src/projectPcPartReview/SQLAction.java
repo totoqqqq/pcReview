@@ -4,7 +4,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+
 import org.apache.commons.lang3.StringUtils;
 class loginSQL {
 	String tablePartName[]= {"cpu","mb","gpu","ram","ssd","hdd"};
@@ -52,7 +55,7 @@ class searchSinglePart extends loginSQL{
 	}
 }
 class rsdataSinglePart{
-	static String[][] views=null;
+	static String[][][] views=null;
 	rsdataSinglePart(ResultSet rs,String str){
 		int count=0,setPage=0;
 		try {
@@ -62,17 +65,23 @@ class rsdataSinglePart{
 			}
 			else {
 				rs.last();
-				views=new String[6][(rs.getRow()%6 == 0 ? rs.getRow()/6 : (rs.getRow()/6)+1)];
+				views=new String[6][7][(rs.getRow()%6 == 0 ? rs.getRow()/6 : (rs.getRow()/6)+1)];
 				singlePartWindow.singlePartViewPage.setText("1/"+(rs.getRow()%6 == 0 ? rs.getRow()/6 : (rs.getRow()/6)+1));
 				rs.first();
 				for(int i = 0;i<views.length;i++) {
 					for(int j=0;j<views[0].length;j++) {
-						views[i][j]="";
+						for(int k=0;k<views[0][0].length;k++)
+						views[i][j][k]="";
 					}
 				}
 				do{
-					views[count][setPage]=str+"\t"+rs.getString(1)+"\t"+rs.getString(2)+"\t("+rs.getInt(3)+")\t("+
-							rs.getFloat(4)+")\t"+rs.getString(5)+"\t("+rs.getInt(6)+")";
+					views[count][0][setPage]=str;
+					views[count][1][setPage]=rs.getString(1);
+					views[count][2][setPage]=rs.getString(2);
+					views[count][3][setPage]=String.valueOf(rs.getInt(3));
+					views[count][4][setPage]=String.valueOf(rs.getFloat(4));
+					views[count][5][setPage]=rs.getString(5);
+					views[count][6][setPage]=String.valueOf(rs.getInt(6));
 					count++;
 					if(count==6) {
 						count=0;
@@ -89,13 +98,17 @@ class rsdataSinglePart{
 	}
 }
 class viewRsdataSinglePart extends loginSQL{
-	viewRsdataSinglePart(String[][] rsdata, int page){
-		for(int i=0;i<rsdata.length;i++)
-			singlePartWindow.singlePartListText[i].setText(rsdata[i][page]);
+	viewRsdataSinglePart(String[][][] rsdata, int page){
+		for(int i=0;i<rsdata.length;i++) {
+			for(int j=0;j<rsdata[0].length;j++)
+			singlePartWindow.singlePartListText[i][j].setText(rsdata[i][j][page]);
+		}
 		for(int i=0;i<singlePartWindow.singlePartListCheck.length;i++) {
-			String list=singlePartWindow.singlePartListText[i].getText().trim();
-			if(list.length()==1)
-				singlePartWindow.singlePartListText[i].setText(null);
+			for(int j=0;j<rsdata[0].length;j++) {
+			String list=singlePartWindow.singlePartListText[i][j].getText();
+			if(list.length()==0)
+				singlePartWindow.singlePartListText[i][j].setText("");
+			}
 		}
 	}
 }
@@ -119,16 +132,16 @@ class insertSinglePart extends loginSQL{
 	}
 }
 class inputSinglePart extends loginSQL{
-	inputSinglePart(String[] input){
+	inputSinglePart(String[] strs){
 		try {
-			if(singlePartWindow.partComboSouth.getSelectedItem().equals("CPU")) {	
+			if(singlePartWindow.partComboSouth.getSelectedItem().equals("CPU")) {
 				ps=con.prepareStatement("insert into "+singlePartWindow.partComboSouth.getSelectedItem()+" values(?,?,?,?,?,?)");
-				ps.setString(1, input[0]);
-				ps.setString(2, input[1]);
-				ps.setInt(3, Integer.parseInt(input[2]));
-				ps.setFloat(4, (float)Math.round(Float.parseFloat(input[3])*100)/100);
-				ps.setString(5, input[4]);
-				ps.setInt(6, Integer.parseInt(input[5]));
+				ps.setString(1, strs[0]);
+				ps.setString(2, strs[1]);
+				ps.setInt(3, Integer.parseInt(strs[2]));
+				ps.setFloat(4, (float)Math.round(Float.parseFloat(strs[3])*100)/100);
+				ps.setString(5, strs[4]);
+				ps.setInt(6, Integer.parseInt(strs[5]));
 			}
 			else {
 				//CPU 말고 다른 부품 인풋 기능 넣을떄 추가 else if(~
@@ -150,17 +163,17 @@ class inputSinglePart extends loginSQL{
 	}	
 }
 class updateImportSinglePart extends loginSQL{
-	updateImportSinglePart(String[] input){
+	updateImportSinglePart(String[] strs, int Location){
 		try {
 			if(singlePartWindow.partComboSouth.getSelectedItem().equals("CPU")) {	
 				ps=con.prepareStatement("update "+singlePartWindow.partComboSouth.getSelectedItem()+
 						" set maker=?,core=?,ghz=?,chipset=?,tdp=? where partname=?");
-				ps.setString(6, input[0]);
-				ps.setString(1, input[1]);
-				ps.setInt(2, Integer.parseInt(input[2]));
-				ps.setFloat(3, (float)Math.round(Float.parseFloat(input[3])*100)/100);
-				ps.setString(4, input[4]);
-				ps.setInt(5, Integer.parseInt(input[5]));
+				ps.setString(6, strs[0]);
+				ps.setString(1, strs[1]);
+				ps.setInt(2, Integer.parseInt(strs[2]));
+				ps.setFloat(3, (float)Math.round(Float.parseFloat(strs[3])*100)/100);
+				ps.setString(4, strs[4]);
+				ps.setInt(5, Integer.parseInt(strs[5]));
 			}
 			else {
 				//CPU 말고 다른 부품 인풋 기능 넣을떄 추가 else if(~
@@ -183,10 +196,16 @@ class updateImportSinglePart extends loginSQL{
 }
 class importSinglePart{
 	importSinglePart(int rsLocation){
+		String southText="";
 		for(int i=0;i<singlePartWindow.singlePartListCheck.length;i++) 
 			singlePartWindow.singlePartListCheck[i].setEnabled(false);
-		singlePartWindow.partComboSouth.setSelectedItem(singlePartWindow.singlePartListText[rsLocation].getText().toString().substring(0,singlePartWindow.partComboNorth.getSelectedItem().toString().length()));
-		singlePartWindow.singlePartSearchTextSouth.setText(singlePartWindow.singlePartListText[rsLocation].getText().toString().replace("\t","/").replace("(","").replace(")","").substring(singlePartWindow.partComboNorth.getSelectedItem().toString().length()+1));
+		singlePartWindow.partComboSouth.setSelectedItem(singlePartWindow.singlePartListText[rsLocation][0].getText().toString().substring(0,singlePartWindow.partComboNorth.getSelectedItem().toString().length()));
+		for(int i=1;i<singlePartWindow.singlePartListText[0].length;i++) {
+			southText+=singlePartWindow.singlePartListText[rsLocation][i].getText();
+			if(i<singlePartWindow.singlePartListText[0].length-1)
+				southText+="/";
+		}
+		singlePartWindow.singlePartSearchTextSouth.setText(southText);
 		singlePartWindow.partComboSouth.setEnabled(false);
 	}
 }
@@ -199,12 +218,12 @@ class updateSinglePart{
 			return;
 		}
 		for(int i=0;i<inserts.length;i++) {
-			if(i<inserts.length-1) {
-				inserts[i]=insert.substring(0,insert.indexOf("/"));
-				insert=insert.substring(insert.indexOf("/")+1,insert.length());
-			}
-			else
-				inserts[i]=insert;
+				if(i<inserts.length-1) {
+					inserts[i]=insert.substring(0,insert.indexOf("/"));
+					insert=insert.substring(insert.indexOf("/")+1,insert.length());
+				}
+				else
+					inserts[i]=insert;
 		}
 		new singPartIntegrity(inserts, rsLocation);
 	}
@@ -216,9 +235,7 @@ class deleteSinglePart extends loginSQL{
 		try {
 			for(int i=0;i<singlePartWindow.singlePartListCheck.length;i++) {
 				if(setListLocation[i]==true) {
-					delPartName[count]=singlePartWindow.singlePartListText[i].getText()
-							.substring(singlePartWindow.partComboNorth.getSelectedItem().toString().length()+1, 
-									singlePartWindow.singlePartListText[i].getText().toString().indexOf("\t", singlePartWindow.partComboNorth.getSelectedItem().toString().length()+1));
+					delPartName[count]=singlePartWindow.singlePartListText[i][1].getText();
 					count++;
 				}
 			}
@@ -269,7 +286,11 @@ class loginUser extends loginSQL{
 		}
 	}
 }
+class CPUNameImport extends loginSQL{
+
+}
 public class SQLAction{
 	public static void main(String[] args) {
+		
 	}
 }
