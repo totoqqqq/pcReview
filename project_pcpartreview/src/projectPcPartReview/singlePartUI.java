@@ -24,10 +24,15 @@ class singlePartWindow extends JFrame{
 			singlePartMainSouthTop=new JPanel(new FlowLayout(FlowLayout.CENTER)),singlePartMainSouthBot=new JPanel(new FlowLayout(FlowLayout.CENTER));
 	JPanel[] singlePartMainCenterList=new JPanel[7];
 	static String[] partList={"CPU","MB","GPU","RAM","SSD","HDD"},
-			columnNameCPU={"부품종류","부품명","제조사","코어수","GHz","칩셋","TDP"};
+			columnNameCPU={"부품종류","부품명","제조사","코어수","GHz","칩셋","TDP"},
+			columnNameMB={"부품종류","부품명","제조사","RAM버스","PCI-E","칩셋","M-보드"},
+			columnNameGPU={"부품종류","부품명","제조사","VRAM","Mhz","팬","TDP"},
+			columnNameRAM={"부품종류","부품명","제조사","DDR","GB","Mhz","노트북용"},
+			columnNameSSD={"부품종류","부품명","제조사","xLC","규격","표기GB","실제GB"},
+			columnNameHDD={"부품종류","부품명","제조사","RPM","캐시","표기GB","실제GB"};
 	static JComboBox<String> partComboNorth=new JComboBox<String>(partList)
 			,partComboSouth=new JComboBox<String>(partList);
-	static JButton[] columnCPU=new JButton[columnNameCPU.length];
+	static JButton[] columnTable=new JButton[columnNameCPU.length];
 	static JButton singlePartSearch=new JButton("검색"),singlePartSave=new JButton("저장하기"),
 			singlePartLoad=new JButton("불러오기"),singlePartDelete=new JButton("삭제하기"),
 			singlePartViewLeft=new JButton(),singlePartViewRight=new JButton();
@@ -58,7 +63,8 @@ class singlePartWindow extends JFrame{
 	}
 	void singlePartMainNorthObjectOption() {
 		objfs.setSize(partComboNorth,defaultKor,80,30);
-		objfs.addSetSize(singlePartMainNorthBot,singlePartSearchTextNorth,defaultKor,580,31);
+		partComboNorth.addItemListener(new singlePartculmnsAction());
+		objfs.addSetSize(singlePartMainNorthBot,singlePartSearchTextNorth,defaultKor,580,30);
 		singlePartSearchTextNorth.setToolTipText(partComboNorth.getSelectedItem().toString()+"명을 전체 혹은 일부 입력해주세요");
 		objfs.addSetSize(singlePartMainNorthBot,singlePartSearch,button,80,30);
 		singlePartSearch.setIcon(new ImageIcon(getClass().getResource("../resource/search.png")));
@@ -68,9 +74,9 @@ class singlePartWindow extends JFrame{
 		int count=0;
 		singlePartMainCenterList[0].setBorder(BorderFactory.createEmptyBorder(0,25,0,0));
 		for(String name:columnNameCPU) {
-			objfs.addSetSize(singlePartMainCenterList[0],columnCPU[count]=new JButton(name),button,800/7,30);
+			objfs.addSetSize(singlePartMainCenterList[0],columnTable[count]=new JButton(name),button,800/7,30);
 			columnNameCPUSort[count]=false;
-			columnCPU[count].addActionListener(new viewSort());
+			columnTable[count].addActionListener(new viewSort());
 			count++;
 		}
 		for(int i=1;i<=singlePartListText.length;i++) {

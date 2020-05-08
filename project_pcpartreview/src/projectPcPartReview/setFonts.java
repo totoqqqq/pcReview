@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 public class setFonts {
 	static Font title=new Font("³ª´®°íµñ",Font.BOLD,16)
-			, defaultK=new Font("³ª´®°íµñ",Font.PLAIN,16)
+			, defaultK=new Font("³ª´®°íµñ",Font.PLAIN,14)
 			, button=new Font("³ª´®°íµñ",Font.BOLD,14)
 			, massage=new Font("³ª´®°íµñ",Font.PLAIN,14)
 			, massageButton=new Font("³ª´®°íµñ",Font.PLAIN,12);

@@ -2,10 +2,13 @@ package projectPcPartReview;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 class reset{
 	reset(){
@@ -92,6 +95,13 @@ class viewMovePage implements ActionListener{
 			if(Integer.parseInt(nowPage)<Integer.parseInt(allPage)) {
 				nowPage=String.valueOf((Integer.parseInt(nowPage)+1));
 				singlePartWindow.singlePartViewPage.setText(nowPage+"/"+allPage);
+				for(int i=0;i<singlePartWindow.singlePartListCheck.length;i++) {
+					if(singlePartWindow.singlePartListCheck[i].isSelected()==true) {
+						singlePartWindow.singlePartListCheck[i].setSelected(false);
+						singlePartWindow.singlePartSearchTextSouth.setText("");
+						singlePartWindow.partComboSouth.setEnabled(true);
+					}
+				}
 				new viewRsdataSinglePart(rsdataSinglePart.views,Integer.parseInt(nowPage)-1);
 			}
 			else {
@@ -102,6 +112,13 @@ class viewMovePage implements ActionListener{
 			if(Integer.parseInt(nowPage)>1) {
 				nowPage=String.valueOf((Integer.parseInt(nowPage)-1));
 				singlePartWindow.singlePartViewPage.setText(nowPage+"/"+allPage);
+				for(int i=0;i<singlePartWindow.singlePartListCheck.length;i++) {
+					if(singlePartWindow.singlePartListCheck[i].isSelected()==true) {
+						singlePartWindow.singlePartListCheck[i].setSelected(false);
+						singlePartWindow.singlePartSearchTextSouth.setText("");
+						singlePartWindow.partComboSouth.setEnabled(true);
+					}
+				}
 				new viewRsdataSinglePart(rsdataSinglePart.views,Integer.parseInt(nowPage)-1);
 			}
 			else {
@@ -129,28 +146,28 @@ class viewSort extends loginSQL implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String orderBy="",ordersqls="";
-		if((JButton)e.getSource()==singlePartWindow.columnCPU[0])
-			orderBy=sorts("partname",0);
-		else if((JButton)e.getSource()==singlePartWindow.columnCPU[1]) 
+		if((JButton)e.getSource()==singlePartWindow.columnTable[0])
+			orderBy=sorts("parttype",0);
+		else if((JButton)e.getSource()==singlePartWindow.columnTable[1]) 
 			orderBy=sorts("partname",1);
-		else if((JButton)e.getSource()==singlePartWindow.columnCPU[2]) 
+		else if((JButton)e.getSource()==singlePartWindow.columnTable[2]) 
 			orderBy=sorts("maker",2);
-		else if((JButton)e.getSource()==singlePartWindow.columnCPU[3]) 
-			orderBy=sorts("core",3);
-		else if((JButton)e.getSource()==singlePartWindow.columnCPU[4]) 
-			orderBy=sorts("ghz",4);
-		else if((JButton)e.getSource()==singlePartWindow.columnCPU[5]) 
-			orderBy=sorts("chipset",5);
-		else if((JButton)e.getSource()==singlePartWindow.columnCPU[6]) 
-			orderBy=sorts("tdp",6);	
+		else if((JButton)e.getSource()==singlePartWindow.columnTable[3]) 
+			orderBy=sorts("info1",3);
+		else if((JButton)e.getSource()==singlePartWindow.columnTable[4]) 
+			orderBy=sorts("info2",4);
+		else if((JButton)e.getSource()==singlePartWindow.columnTable[5]) 
+			orderBy=sorts("info3",5);
+		else if((JButton)e.getSource()==singlePartWindow.columnTable[6]) 
+			orderBy=sorts("info4",6);	
 		try {
 			try {
 				if(searchSinglePart.ordertext[1].equals("")&&searchSinglePart.ordertext[1].length()==0) {
-					ordersqls="select * from "+searchSinglePart.ordertext[0]+" order by "+orderBy;
+					ordersqls="select * from partinfo where parttype='"+searchSinglePart.ordertext[0]+"' order by "+orderBy;
 					ps=con.prepareStatement(ordersqls,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 				}
 				else {
-					ordersqls="select * from "+searchSinglePart.ordertext[0]+" where PARTNAME like '%'||?||'%' order by "+orderBy;
+					ordersqls="select * from partinfo where parttype='"+searchSinglePart.ordertext[0]+"' and PARTNAME like '%'||?||'%' order by "+orderBy;
 					ps=con.prepareStatement(ordersqls,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 					ps.setString(1, searchSinglePart.ordertext[1]);
 				}
@@ -168,4 +185,36 @@ class viewSort extends loginSQL implements ActionListener {
 			//SQL singlePart table search error Sort
 		}
 	}
+}
+class singlePartculmnsAction implements ItemListener{
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		JComboBox jcb=(JComboBox)e.getSource();
+		String index=jcb.getSelectedItem().toString();
+		if(index.equals("CPU")) {
+			for(int i=0;i<singlePartWindow.columnNameCPU.length;i++)
+				singlePartWindow.columnTable[i].setText(singlePartWindow.columnNameCPU[i]);
+		}
+		else if(index.equals("MB")) {
+			for(int i=0;i<singlePartWindow.columnNameCPU.length;i++)
+				singlePartWindow.columnTable[i].setText(singlePartWindow.columnNameMB[i]);
+		}
+		else if(index.equals("GPU")) {
+			for(int i=0;i<singlePartWindow.columnNameCPU.length;i++)
+				singlePartWindow.columnTable[i].setText(singlePartWindow.columnNameGPU[i]);
+		}
+		else if(index.equals("RAM")) {
+			for(int i=0;i<singlePartWindow.columnNameCPU.length;i++)
+				singlePartWindow.columnTable[i].setText(singlePartWindow.columnNameRAM[i]);
+		}
+		else if(index.equals("HDD")) {
+			for(int i=0;i<singlePartWindow.columnNameCPU.length;i++)
+				singlePartWindow.columnTable[i].setText(singlePartWindow.columnNameHDD[i]);
+		}
+		else if(index.equals("SSD")) {
+			for(int i=0;i<singlePartWindow.columnNameCPU.length;i++)
+				singlePartWindow.columnTable[i].setText(singlePartWindow.columnNameSSD[i]);
+		}
+		new reset();
+	}	
 }

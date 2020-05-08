@@ -43,12 +43,14 @@ public class objFontAndSize{
 		JTextField.setText(null);
 		JTextField.setFont(fontSet);
 		JTextField.setPreferredSize(new Dimension(weight,height));
+		JTextField.setBorder(BorderFactory.createLineBorder(new Color(153,204,255)));
 	}
 	void addSetSize(JPanel JPanel,JPasswordField JPasswordField,Font fontSet,int weight, int height) {
 		JPanel.add(JPasswordField);
 		JPasswordField.setText(null);
 		JPasswordField.setFont(fontSet);
 		JPasswordField.setPreferredSize(new Dimension(weight,height));
+		JPasswordField.setBorder(BorderFactory.createLineBorder(new Color(153,204,255)));
 	}
 	void addSetSize(JPanel JPanel,JPanel addonJPanel,Color Color) {
 		JPanel.add(addonJPanel);

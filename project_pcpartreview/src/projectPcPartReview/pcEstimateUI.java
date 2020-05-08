@@ -22,7 +22,7 @@ class pcEstimateWindow extends JFrame{
 	JPanel[] pcEstimateMCRightList=new JPanel[6];
 	@SuppressWarnings("rawtypes")
 	static JComboBox[] Partlist=new JComboBox[6];
-	String[] tableName={"CPU","MB","GPU","RAM","HDD","SSD"};
+	String[] tableName={"CPU","MB","GPU","RAM","HDD","SSD"},partname=null;
 	JLabel title=new JLabel(new ImageIcon(getClass().getResource("../resource/pcEstimateTitle.png")));
 	Font defaultKor=setFonts.defaultK,titleKor=setFonts.title,button=setFonts.button,message=setFonts.massage,
 			messageButton=setFonts.massageButton;
@@ -42,10 +42,14 @@ class pcEstimateWindow extends JFrame{
 	void pcEstimateWindowMainCenterOption() {
 		objfs.addSetSize(pcEstimateMainCenter, pcEstimateMainCenterLeft);
 		objfs.addSetSize(pcEstimateMainCenter, pcEstimateMainCenterRight);
-		for(int i=0;i<pcEstimateMCRightList.length;i++) {
-			objfs.addSetSize(pcEstimateMainCenterRight, pcEstimateMCRightList[i]=new JPanel(new FlowLayout(FlowLayout.CENTER)));
-			pcEstimateMCRightList[i].add(Partlist[i]=new JComboBox<String>());
-		}
+		new partNameImport("CPU");
+		objfs.addSetSize(pcEstimateMainCenterRight, pcEstimateMCRightList[0]=new JPanel(new FlowLayout(FlowLayout.CENTER)));
+		pcEstimateMCRightList[0].add(Partlist[0]);
+		objfs.setSize(Partlist[0],defaultKor,100,30);
+//		for(int i=0;i<pcEstimateMCRightList.length;i++) {
+//			objfs.addSetSize(pcEstimateMainCenterRight, pcEstimateMCRightList[i]=new JPanel(new FlowLayout(FlowLayout.CENTER)));
+//			pcEstimateMCRightList[i].add(Partlist[i]=new JComboBox<String>());
+//		}
 	}
 	void mainWindowOption(){
 		add(pcEstimateMain);

@@ -36,11 +36,33 @@ class searchSinglePart extends loginSQL{
 		ordertext[1]=singlePartWindow.singlePartSearchTextNorth.getText().toString();
 		try {
 			if(ordertext[1].equals("")&&ordertext[1].length()==0) {
-				ordersql="select * from "+ordertext[0]+" order by PARTNAME";
+				ordersql="select * from partinfo where parttype='"+ordertext[0]+"' order by PARTNAME";
 				ps=con.prepareStatement(ordersql,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 			}
 			else {
-				ordersql="select * from "+ordertext[0]+" where PARTNAME like '%'||?||'%' order by PARTNAME";
+				ordersql="select * from partinfo where parttype='"+ordertext[0]+"' and PARTNAME like '%'||?||'%' order by PARTNAME";
+				ps=con.prepareStatement(ordersql,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+				ps.setString(1, ordertext[1]);
+			}
+			rs=ps.executeQuery();
+			new rsdataSinglePart(rs,ordertext[0]);
+		}
+		catch(SQLException|NullPointerException e) {
+			JOptionPane.showMessageDialog(singlePartUI.spw,"Error_STS_01","search error",JOptionPane.WARNING_MESSAGE,null);
+			return;
+			//SQL singlePart table search error
+		}
+	}
+	searchSinglePart(String partName){
+		ordertext[0]=partName;
+		ordertext[1]=singlePartWindow.singlePartSearchTextNorth.getText().toString();
+		try {
+			if(ordertext[1].equals("")&&ordertext[1].length()==0) {
+				ordersql="select * from partinfo where parttype='"+ordertext[0]+"' order by PARTNAME";
+				ps=con.prepareStatement(ordersql,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			}
+			else {
+				ordersql="select * from partinfo where parttype='"+ordertext[0]+"' and PARTNAME like '%'||?||'%' order by PARTNAME";
 				ps=con.prepareStatement(ordersql,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 				ps.setString(1, ordertext[1]);
 			}
@@ -75,13 +97,13 @@ class rsdataSinglePart{
 					}
 				}
 				do{
-					views[count][0][setPage]=str;
-					views[count][1][setPage]=rs.getString(1);
-					views[count][2][setPage]=rs.getString(2);
-					views[count][3][setPage]=String.valueOf(rs.getInt(3));
-					views[count][4][setPage]=String.valueOf(rs.getFloat(4));
-					views[count][5][setPage]=rs.getString(5);
-					views[count][6][setPage]=String.valueOf(rs.getInt(6));
+					views[count][0][setPage]=rs.getString(1);
+					views[count][1][setPage]=rs.getString(2);
+					views[count][2][setPage]=rs.getString(3);
+					views[count][3][setPage]=rs.getString(4);
+					views[count][4][setPage]=rs.getString(5);
+					views[count][5][setPage]=rs.getString(6);
+					views[count][6][setPage]=rs.getString(7);
 					count++;
 					if(count==6) {
 						count=0;
@@ -134,27 +156,24 @@ class insertSinglePart extends loginSQL{
 class inputSinglePart extends loginSQL{
 	inputSinglePart(String[] strs){
 		try {
-			if(singlePartWindow.partComboSouth.getSelectedItem().equals("CPU")) {
-				ps=con.prepareStatement("insert into "+singlePartWindow.partComboSouth.getSelectedItem()+" values(?,?,?,?,?,?)");
-				ps.setString(1, strs[0]);
-				ps.setString(2, strs[1]);
-				ps.setInt(3, Integer.parseInt(strs[2]));
-				ps.setFloat(4, (float)Math.round(Float.parseFloat(strs[3])*100)/100);
-				ps.setString(5, strs[4]);
-				ps.setInt(6, Integer.parseInt(strs[5]));
-			}
-			else {
-				//CPU 말고 다른 부품 인풋 기능 넣을떄 추가 else if(~
-			}
+			ps=con.prepareStatement("insert into partinfo values(?,?,?,?,?,?,?)");
+			ps.setString(1, singlePartWindow.partComboSouth.getSelectedItem().toString());
+			ps.setString(2, strs[0]);
+			ps.setString(3, strs[1]);
+			ps.setString(4, strs[2]);
+			ps.setString(5, strs[3]);
+			ps.setString(6, strs[4]);
+			ps.setString(7, strs[5]);
 			int check=ps.executeUpdate();
 			if(check==1) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,singlePartWindow.partComboSouth.getSelectedItem()+" 정보가 추가되었습니다.","정보 추가",JOptionPane.INFORMATION_MESSAGE,null);
-				new searchSinglePart();
 				singlePartWindow.partComboSouth.setEnabled(true);
+				singlePartWindow.partComboNorth.setSelectedItem(singlePartWindow.partComboSouth.getSelectedItem());
 			}
 			else
 				JOptionPane.showMessageDialog(singlePartUI.spw, "Error_STI_02","insert error",JOptionPane.WARNING_MESSAGE,null);
 				//SQL singPart table's executeUpdate error
+			new searchSinglePart(singlePartWindow.partComboSouth.getSelectedItem().toString());
 		}
 		catch(SQLException e) {
 			JOptionPane.showMessageDialog(singlePartUI.spw,"Error_STI_01","insert error",JOptionPane.WARNING_MESSAGE,null);
@@ -165,28 +184,27 @@ class inputSinglePart extends loginSQL{
 class updateImportSinglePart extends loginSQL{
 	updateImportSinglePart(String[] strs, int Location){
 		try {
-			if(singlePartWindow.partComboSouth.getSelectedItem().equals("CPU")) {	
-				ps=con.prepareStatement("update "+singlePartWindow.partComboSouth.getSelectedItem()+
-						" set maker=?,core=?,ghz=?,chipset=?,tdp=? where partname=?");
-				ps.setString(6, strs[0]);
-				ps.setString(1, strs[1]);
-				ps.setInt(2, Integer.parseInt(strs[2]));
-				ps.setFloat(3, (float)Math.round(Float.parseFloat(strs[3])*100)/100);
-				ps.setString(4, strs[4]);
-				ps.setInt(5, Integer.parseInt(strs[5]));
-			}
-			else {
-				//CPU 말고 다른 부품 인풋 기능 넣을떄 추가 else if(~
-			}
+			ps=con.prepareStatement("update partinfo set maker=?,info1=?,info2=?,info3=?,info4=? where parttype='"+singlePartWindow.partComboSouth.getSelectedItem().toString()+"' and partname=?");
+			ps.setString(6, strs[0]);
+			ps.setString(1, strs[1]);
+			ps.setString(2, strs[2]);
+			ps.setString(3, strs[3]);
+			ps.setString(4, strs[4]);
+			ps.setString(5, strs[5]);
 			int check=ps.executeUpdate();
-			new searchSinglePart();
 			if(check==1) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,singlePartWindow.partComboSouth.getSelectedItem()+" 정보가 갱신되었습니다.","정보 갱신",JOptionPane.INFORMATION_MESSAGE,null);
 				singlePartWindow.partComboSouth.setEnabled(true);
+				for(int i=0;i<singlePartWindow.singlePartListCheck.length;i++) {
+					singlePartWindow.singlePartListCheck[i].setSelected(false);
+					singlePartWindow.singlePartListCheck[i].setEnabled(true);
+				}
+				singlePartWindow.partComboNorth.setSelectedItem(singlePartWindow.partComboSouth.getSelectedItem());
 			}
 			else
 				JOptionPane.showMessageDialog(singlePartUI.spw, "Error_STU_02","update error",JOptionPane.WARNING_MESSAGE,null);
 				//SQL singPart table's executeUpdate error
+			new searchSinglePart(singlePartWindow.partComboSouth.getSelectedItem().toString());
 		}
 		catch(SQLException e) {
 			JOptionPane.showMessageDialog(singlePartUI.spw,"Error_STU_01","update error",JOptionPane.WARNING_MESSAGE,null);
@@ -246,7 +264,7 @@ class deleteSinglePart extends loginSQL{
 		}
 		try {
 			for(int i=0;i<delPartName.length;i++) {
-				ps=con.prepareStatement("delete "+singlePartWindow.partComboSouth.getSelectedItem()+" where partname=?");
+				ps=con.prepareStatement("delete partinfo where parttype='"+singlePartWindow.partComboSouth.getSelectedItem()+"' and partname=?");
 				ps.setString(1, delPartName[i]);
 				ps.executeQuery();
 			}
@@ -286,8 +304,29 @@ class loginUser extends loginSQL{
 		}
 	}
 }
-class CPUNameImport extends loginSQL{
-
+class partNameImport extends loginSQL{
+	partNameImport(String partName){
+		try {
+			ps=con.prepareStatement("select partname from partinfo where parttype='"+partName+"' order by partname",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			rs=ps.executeQuery();
+			rs.last();
+			int count=rs.getRow();
+			String[] strs=new String[count];
+			rs.first();
+			if(partName.equals("CPU")) {
+				for(int i=0;i<strs.length;i++) {
+					strs[i]=rs.getString(1);
+					rs.next();
+				}
+				pcEstimateWindow.Partlist[0]=new JComboBox<String>(strs);
+			}			
+		} 
+		catch (SQLException e) {
+			JOptionPane.showMessageDialog(pcEstimateUI.pew,"Error_STS_05","login error",JOptionPane.WARNING_MESSAGE,null);
+			return;
+			//SQL partinfo table search error
+		}		
+	}
 }
 public class SQLAction{
 	public static void main(String[] args) {
