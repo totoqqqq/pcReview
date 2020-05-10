@@ -33,7 +33,7 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"TDP는 숫자를 입력해야 됩니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			if(strs[0].length()>50) {
+			if(strs[0].length()>60) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"CPU의 부품명이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
@@ -53,7 +53,7 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"CPU의 GHz가 너무 높습니다.\n(10Ghz 미만 소수점 둘째자리 까지만 입력하세요.)","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			else if(strs[4].length()>10) {
+			else if(strs[4].length()>16) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"칩셋명이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
@@ -76,7 +76,7 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"RAM버스는 숫자를 입력해야 됩니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			if(strs[0].length()>50) {
+			if(strs[0].length()>60) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"메인보드의 부품명이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
@@ -92,11 +92,11 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"메인보드의 RAM버스 갯수가 너무 많습니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			else if(strs[3].length()>10) {
+			else if(strs[3].length()>16) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"메인보드의 규격의 길이가 너무깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			else if(strs[4].length()>10) {
+			else if(strs[4].length()>16) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"칩셋명이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
@@ -133,7 +133,7 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"팬의수는 숫자를 입력해야 됩니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			if(strs[0].length()>50) {
+			if(strs[0].length()>60) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"GPU의 부품명이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
@@ -183,7 +183,7 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"HMZ는 숫자를 입력해야 됩니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			if(strs[0].length()>50) {
+			if(strs[0].length()>60) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"RAM의 부품명이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
@@ -195,8 +195,8 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"RAM의 메이커명이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			else if(strs[2].length()>10) {
-				JOptionPane.showMessageDialog(singlePartUI.spw,"RAM의 DDR 규격이 다릅니다.","update error",JOptionPane.WARNING_MESSAGE,null);
+			else if(strs[2].length()>16) {
+				JOptionPane.showMessageDialog(singlePartUI.spw,"RAM의 용량 규격이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
 			else if(strs[3].length()>4||Float.parseFloat(strs[3])>100) {
@@ -207,8 +207,8 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"RAM의 HMZ이 너무 많습니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			else if(strs[5].length()>10) {
-				JOptionPane.showMessageDialog(singlePartUI.spw,"RAM의 노트북 사용여부 데이터만 입력하세요","update error",JOptionPane.WARNING_MESSAGE,null);
+			else if(strs[5].length()>16) {
+				JOptionPane.showMessageDialog(singlePartUI.spw,"RAM의 ATX 데이터만 입력하세요","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
 			else {
@@ -233,7 +233,7 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"실제용량은 숫자를 입력해야 됩니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			if(strs[0].length()>50) {
+			if(strs[0].length()>60) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"SSD의 부품명이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
@@ -245,11 +245,11 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"SSD의 메이커명이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			else if(strs[2].length()>10) {
+			else if(strs[2].length()>16) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"SSD의 xLC규격이 다릅니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			else if(strs[3].length()>10) {
+			else if(strs[3].length()>16) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"SSD의 장착규격이 다릅니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
@@ -283,7 +283,7 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"실제용량은 숫자를 입력해야 됩니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			if(strs[0].length()>50) {
+			if(strs[0].length()>60) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"HDD의 부품명이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
@@ -345,7 +345,7 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"TDP는 숫자를 입력해야 됩니다.","insert error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			if(strs[0].length()>50) {
+			if(strs[0].length()>60) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"CPU의 부품명이 너무 깁니다.","insert error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
@@ -361,7 +361,7 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"CPU의 GHz가 너무 높습니다.\n(10Ghz 미만 소수점 둘째자리 까지만 입력하세요.)","insert error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			else if(strs[4].length()>10) {
+			else if(strs[4].length()>16) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"칩셋명이 너무 깁니다.","insert error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
@@ -384,7 +384,7 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"RAM버스는 숫자를 입력해야 됩니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			if(strs[0].length()>50) {
+			if(strs[0].length()>60) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"메인보드의 부품명이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
@@ -396,11 +396,11 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"메인보드의 RAM버스 갯수가 너무 많습니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			else if(strs[3].length()>10) {
+			else if(strs[3].length()>16) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"메인보드의 규격의 길이가 너무깁니다.\n(10Ghz 미만 소수점 둘째자리 까지만 입력하세요.)","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			else if(strs[4].length()>10) {
+			else if(strs[4].length()>16) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"칩셋명이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
@@ -437,7 +437,7 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"팬의수는 숫자를 입력해야 됩니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			if(strs[0].length()>50) {
+			if(strs[0].length()>60) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"GPU의 부품명이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
@@ -483,7 +483,7 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"HMZ는 숫자를 입력해야 됩니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			if(strs[0].length()>50) {
+			if(strs[0].length()>60) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"RAM의 부품명이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
@@ -491,8 +491,8 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"RAM의 메이커명이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			else if(strs[2].length()>10) {
-				JOptionPane.showMessageDialog(singlePartUI.spw,"RAM의 DDR 규격이 다릅니다.","update error",JOptionPane.WARNING_MESSAGE,null);
+			else if(strs[2].length()>16) {
+				JOptionPane.showMessageDialog(singlePartUI.spw,"RAM의 용량 규격이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
 			else if(strs[3].length()>4||Float.parseFloat(strs[3])>100) {
@@ -503,8 +503,8 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"RAM의 HMZ이 너무 많습니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			else if(strs[5].length()>10) {
-				JOptionPane.showMessageDialog(singlePartUI.spw,"RAM의 노트북 사용여부 데이터만 입력하세요","update error",JOptionPane.WARNING_MESSAGE,null);
+			else if(strs[5].length()>16) {
+				JOptionPane.showMessageDialog(singlePartUI.spw,"RAM의 ATX 데이터만 입력하세요","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
 			else {
@@ -529,7 +529,7 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"실제용량은 숫자를 입력해야 됩니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			if(strs[0].length()>50) {
+			if(strs[0].length()>60) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"SSD의 부품명이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
@@ -537,11 +537,11 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"SSD의 메이커명이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			else if(strs[2].length()>10) {
+			else if(strs[2].length()>16) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"SSD의 xLC규격이 다릅니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			else if(strs[3].length()>10) {
+			else if(strs[3].length()>16) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"SSD의 장착규격이 다릅니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
@@ -575,7 +575,7 @@ public class singPartIntegrity {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"실제용량은 숫자를 입력해야 됩니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}
-			if(strs[0].length()>50) {
+			if(strs[0].length()>60) {
 				JOptionPane.showMessageDialog(singlePartUI.spw,"HDD의 부품명이 너무 깁니다.","update error",JOptionPane.WARNING_MESSAGE,null);
 				return;
 			}

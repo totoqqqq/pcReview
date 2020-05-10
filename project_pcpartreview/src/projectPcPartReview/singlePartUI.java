@@ -25,9 +25,9 @@ class singlePartWindow extends JFrame{
 	JPanel[] singlePartMainCenterList=new JPanel[7];
 	static String[] partList={"CPU","MB","GPU","RAM","SSD","HDD"},
 			columnNameCPU={"부품종류","부품명","제조사","코어수","GHz","칩셋","TDP"},
-			columnNameMB={"부품종류","부품명","제조사","RAM버스","PCI-E","칩셋","M-보드"},
+			columnNameMB={"부품종류","부품명","제조사","메모리용량","PCI-E슬롯","칩셋","ATX"},
 			columnNameGPU={"부품종류","부품명","제조사","VRAM","Mhz","팬","TDP"},
-			columnNameRAM={"부품종류","부품명","제조사","DDR","GB","Mhz","노트북용"},
+			columnNameRAM={"부품종류","부품명","제조사","DDR","GB","Mhz","램타이밍"},
 			columnNameSSD={"부품종류","부품명","제조사","xLC","규격","표기GB","실제GB"},
 			columnNameHDD={"부품종류","부품명","제조사","RPM","캐시","표기GB","실제GB"};
 	static JComboBox<String> partComboNorth=new JComboBox<String>(partList)
@@ -74,7 +74,10 @@ class singlePartWindow extends JFrame{
 		int count=0;
 		singlePartMainCenterList[0].setBorder(BorderFactory.createEmptyBorder(0,25,0,0));
 		for(String name:columnNameCPU) {
-			objfs.addSetSize(singlePartMainCenterList[0],columnTable[count]=new JButton(name),button,800/7,30);
+			if(count==1) 
+				objfs.addSetSize(singlePartMainCenterList[0],columnTable[count]=new JButton(name),button,400,30);
+			else
+				objfs.addSetSize(singlePartMainCenterList[0],columnTable[count]=new JButton(name),button,450/6,30);
 			columnNameCPUSort[count]=false;
 			columnTable[count].addActionListener(new viewSort());
 			count++;
@@ -84,7 +87,10 @@ class singlePartWindow extends JFrame{
 			singlePartListCheck[i-1].setToolTipText("수정시에는 하나만 체크 후 '불러오기', 삭제시에는 삭제 할 데이터 전부 체크 후 '삭제' 눌러주세요");
 			singlePartListCheck[i-1].setBackground(Color.WHITE);
 			for(int j=0;j<singlePartListText[0].length;j++) {
-				objfs.addSetSize(singlePartMainCenterList[i],singlePartListText[i-1][j]=new JTextField(),defaultKor,800/7,30);
+				if(j==1)
+					objfs.addSetSize(singlePartMainCenterList[i],singlePartListText[i-1][j]=new JTextField(),defaultKor,400,30);
+				else
+					objfs.addSetSize(singlePartMainCenterList[i],singlePartListText[i-1][j]=new JTextField(),defaultKor,450/6,30);
 				singlePartListText[i-1][j].setEnabled(false);
 				singlePartListText[i-1][j].setHorizontalAlignment(JTextField.CENTER);
 				singlePartListText[i-1][j].setDisabledTextColor(Color.BLACK);

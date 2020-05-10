@@ -189,6 +189,7 @@ class viewSort extends loginSQL implements ActionListener {
 class singlePartculmnsAction implements ItemListener{
 	@Override
 	public void itemStateChanged(ItemEvent e) {
+		@SuppressWarnings("rawtypes")
 		JComboBox jcb=(JComboBox)e.getSource();
 		String index=jcb.getSelectedItem().toString();
 		if(index.equals("CPU")) {
@@ -215,6 +216,7 @@ class singlePartculmnsAction implements ItemListener{
 			for(int i=0;i<singlePartWindow.columnNameCPU.length;i++)
 				singlePartWindow.columnTable[i].setText(singlePartWindow.columnNameSSD[i]);
 		}
+		singlePartWindow.singlePartSearchTextNorth.setText("");
 		new reset();
 	}	
 }

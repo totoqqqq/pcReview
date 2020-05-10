@@ -6,7 +6,7 @@ import java.awt.GraphicsEnvironment;
 import javax.swing.JOptionPane;
 
 public class setFonts {
-	static Font title=new Font("³ª´®°íµñ",Font.BOLD,16)
+	static Font title=new Font("³ª´®°íµñ",Font.BOLD,40)
 			, defaultK=new Font("³ª´®°íµñ",Font.PLAIN,14)
 			, button=new Font("³ª´®°íµñ",Font.BOLD,14)
 			, massage=new Font("³ª´®°íµñ",Font.PLAIN,14)
@@ -20,8 +20,8 @@ public class setFonts {
 			if(ftCheck.equals("³ª´®°íµñ"))
 				return;
 		}
-		title=new Font("±¼¸²",Font.BOLD,20);
-		defaultK=new Font("±¼¸²",Font.PLAIN,20);
+		title=new Font("±¼¸²",Font.BOLD,42);
+		defaultK=new Font("±¼¸²",Font.PLAIN,16);
 		button=new Font("±¼¸²",Font.BOLD,16);
 		massage=new Font("±¼¸²",Font.PLAIN,16);
 		massageButton=new Font("±¼¸²",Font.PLAIN,14);

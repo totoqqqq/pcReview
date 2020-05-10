@@ -19,7 +19,7 @@ class loginSQL {
 		try {
 //			String url="jdbc:oracle:thin:@localhost:1521:orcl",user="system",pass="oracle";
 //			집에선 orcl / 학원에선 xe
-			String url="jdbc:oracle:thin:@localhost:1521:xe",user="system",pass="oracle";
+			String url="jdbc:oracle:thin:@localhost:1521:orcl",user="system",pass="oracle";
 			con=DriverManager.getConnection(url, user, pass);
 		}
 		catch(SQLException e){
@@ -305,21 +305,20 @@ class loginUser extends loginSQL{
 	}
 }
 class partNameImport extends loginSQL{
-	partNameImport(String partName){
+	partNameImport(int index){
 		try {
-			ps=con.prepareStatement("select partname from partinfo where parttype='"+partName+"' order by partname",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			String[] partList={"CPU","MB","GPU","RAM","SSD","HDD"};
+			ps=con.prepareStatement("select partname from partinfo where parttype='"+partList[index]+"' order by partname",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 			rs=ps.executeQuery();
 			rs.last();
 			int count=rs.getRow();
 			String[] strs=new String[count];
 			rs.first();
-			if(partName.equals("CPU")) {
-				for(int i=0;i<strs.length;i++) {
-					strs[i]=rs.getString(1);
-					rs.next();
-				}
-				pcEstimateWindow.Partlist[0]=new JComboBox<String>(strs);
-			}			
+			for(int i=0;i<strs.length;i++) {
+				strs[i]=rs.getString(1);
+				rs.next();
+			}
+			pcEstimateWindow.partList[index]=new JComboBox<String>(strs);			
 		} 
 		catch (SQLException e) {
 			JOptionPane.showMessageDialog(pcEstimateUI.pew,"Error_STS_05","login error",JOptionPane.WARNING_MESSAGE,null);
