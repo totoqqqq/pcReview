@@ -19,7 +19,7 @@ class loginSQL {
 		try {
 //			String url="jdbc:oracle:thin:@localhost:1521:orcl",user="system",pass="oracle";
 //			집에선 orcl / 학원에선 xe
-			String url="jdbc:oracle:thin:@localhost:1521:orcl",user="system",pass="oracle";
+			String url="jdbc:oracle:thin:@localhost:1521:xe",user="system",pass="oracle";
 			con=DriverManager.getConnection(url, user, pass);
 		}
 		catch(SQLException e){
@@ -264,11 +264,11 @@ class deleteSinglePart extends loginSQL{
 		}
 		try {
 			for(int i=0;i<delPartName.length;i++) {
-				ps=con.prepareStatement("delete partinfo where parttype='"+singlePartWindow.partComboSouth.getSelectedItem()+"' and partname=?");
+				ps=con.prepareStatement("delete partinfo where parttype='"+singlePartWindow.partComboNorth.getSelectedItem()+"' and partname=?");
 				ps.setString(1, delPartName[i]);
 				ps.executeQuery();
 			}
-			JOptionPane.showMessageDialog(singlePartUI.spw,singlePartWindow.partComboSouth.getSelectedItem()+" 정보가 "+count+"건 삭제되었습니다.","정보 갱신",JOptionPane.INFORMATION_MESSAGE,null);
+			JOptionPane.showMessageDialog(singlePartUI.spw,singlePartWindow.partComboNorth.getSelectedItem()+" 정보가 "+count+"건 삭제되었습니다.","정보 갱신",JOptionPane.INFORMATION_MESSAGE,null);
 			new reset();
 			new searchSinglePart();
 		}

@@ -95,6 +95,9 @@ class loginWindow extends JFrame{
 
 public class loginUI {
 	static loginWindow loginW=new loginWindow();
+	loginUI(){
+		loginW=new loginWindow();
+	}
 	public static void main(String[] args) {
 	}
 }

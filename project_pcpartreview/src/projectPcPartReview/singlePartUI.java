@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -12,6 +13,9 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -42,6 +46,10 @@ class singlePartWindow extends JFrame{
 			singlePartViewPage=new JTextField(5);
 	static JLabel singlePartTitle=new JLabel();
 	static boolean[] columnNameCPUSort=new boolean[columnNameCPU.length];
+	JMenuBar singlePartMenu=new JMenuBar();
+	static JMenu singlePartMenuSystem=new JMenu("시스템"),singlePartMenuSetting=new JMenu("설정");
+	static JMenuItem settingResetDB=new JMenuItem("초기화(R)",KeyEvent.VK_R),systemLogout=new JMenuItem("로그아웃(T)",KeyEvent.VK_T),
+			systemExit=new JMenuItem("종료(X)",KeyEvent.VK_X);
 	Font defaultKor=setFonts.defaultK,titleKor=setFonts.title,button=setFonts.button,message=setFonts.massage,
 			messageButton=setFonts.massageButton;
 	objFontAndSize objfs=new objFontAndSize();
@@ -102,7 +110,7 @@ class singlePartWindow extends JFrame{
 		singlePartMainSouthTop.setBorder(BorderFactory.createEmptyBorder(0,30,30,0));
 		objfs.setSize(partComboSouth,defaultKor,80,30);
 		objfs.addSetSize(singlePartMainSouthTop,singlePartSearchTextSouth,defaultKor,370,31);
-		singlePartSearchTextSouth.setToolTipText("부품명/제조사/코어수/GHZ/칩셋/TDP 항목을 /으로 구분하여 입력해주세요.");
+		singlePartSearchTextSouth.setToolTipText(columnNameCPU[0]+"/"+columnNameCPU[1]+"/"+columnNameCPU[2]+"/"+columnNameCPU[3]+"/"+columnNameCPU[4]+"/"+columnNameCPU[5]+" 항목을 /으로 구분하여 입력해주세요.");
 		objfs.addSetSize(singlePartMainSouthTop,singlePartLoad,button,110,30);
 		singlePartLoad.addActionListener(new spIUD());
 		singlePartLoad.setIcon(new ImageIcon(getClass().getResource("../resource/load.png")));
@@ -141,6 +149,23 @@ class singlePartWindow extends JFrame{
 			objfs.addSetSize(singlePartMainCenter, singlePartMainCenterList[i]=new JPanel(new FlowLayout(FlowLayout.CENTER)), Color.WHITE);
 		objfs.addSetSize(singlePartMainSouth,singlePartMainSouthTop);
 		objfs.addSetSize(singlePartMainSouth,singlePartMainSouthBot);
+		setJMenuBar(singlePartMenu);
+		singlePartMenu.setBackground(new Color(255,255,255));
+		singlePartMenu.setForeground(new Color(255,255,255));
+		singlePartMenu.setBorder(BorderFactory.createLineBorder(new Color(255,255,255),0));
+		singlePartMenu.add(singlePartMenuSystem);
+		singlePartMenu.add(singlePartMenuSetting);
+		singlePartMenuSystem.setFont(defaultKor);
+		singlePartMenuSetting.setFont(defaultKor);
+		singlePartMenuSystem.add(systemLogout);
+		systemLogout.setFont(defaultKor);
+		systemLogout.addActionListener(new singlePartMenuSystem());
+		singlePartMenuSystem.add(systemExit);
+		systemExit.setFont(defaultKor);
+		systemExit.addActionListener(new singlePartMenuSystem());
+		singlePartMenuSetting.add(settingResetDB);
+		settingResetDB.addActionListener(new singPartMenuSetting());
+		settingResetDB.setFont(defaultKor);
 	}
 	void mainWindowOption(){
 		UIManager.put("OptionPane.messageFont",message);
@@ -164,6 +189,7 @@ class singlePartUI {
 			singlePartWindow.singlePartSave.setEnabled(false);
 			singlePartWindow.singlePartDelete.setEnabled(false);
 			singlePartWindow.singlePartTitle.setIcon(new ImageIcon(getClass().getResource("../resource/singlePartGuestTitle.png")));
+			singlePartWindow.singlePartMenuSetting.setVisible(false);
 		}
 		else if(userlevel==9) {
 			singlePartWindow.partComboSouth.setEnabled(true);
@@ -172,9 +198,11 @@ class singlePartUI {
 			singlePartWindow.singlePartSave.setEnabled(true);
 			singlePartWindow.singlePartDelete.setEnabled(true);
 			singlePartWindow.singlePartTitle.setIcon(new ImageIcon(getClass().getResource("../resource/singlePartAdminTitle.png")));
+			singlePartWindow.singlePartMenuSetting.setVisible(true);
 		}
 		else {
 			System.exit(0);
 		}
+		singlePartUI.spw.setVisible(true);
 	}
 }
