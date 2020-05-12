@@ -240,11 +240,17 @@ class singlePartculmnsAction implements ItemListener{
 class singlePartMenuSystem implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if((JMenuItem)e.getSource()==singlePartWindow.systemLogout) {
-			new loginUI();
+			loginWindow.loginIDText.setText("");
+			loginWindow.loginPassText.setText("");
+			loginWindow.loginIDText.requestFocus();
+			loginUI.loginW.setVisible(true);
+			loginUI.loginW.setLocationRelativeTo(null);
 			singlePartUI.spw.setVisible(false);
+			return;
 		}
 		if((JMenuItem)e.getSource()==singlePartWindow.systemExit)
 			System.exit(0);
+		return;
 	}	
 }
 class singPartMenuSetting implements ActionListener{

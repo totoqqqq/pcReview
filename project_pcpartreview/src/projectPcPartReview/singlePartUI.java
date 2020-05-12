@@ -84,6 +84,8 @@ class singlePartWindow extends JFrame{
 		for(String name:columnNameCPU) {
 			if(count==1) 
 				objfs.addSetSize(singlePartMainCenterList[0],columnTable[count]=new JButton(name),button,400,30);
+			else if(count==singlePartListText[0].length-1)
+				objfs.addSetSize(singlePartMainCenterList[0],columnTable[count]=new JButton(name),button,510/6,30);
 			else
 				objfs.addSetSize(singlePartMainCenterList[0],columnTable[count]=new JButton(name),button,450/6,30);
 			columnNameCPUSort[count]=false;
@@ -97,6 +99,8 @@ class singlePartWindow extends JFrame{
 			for(int j=0;j<singlePartListText[0].length;j++) {
 				if(j==1)
 					objfs.addSetSize(singlePartMainCenterList[i],singlePartListText[i-1][j]=new JTextField(),defaultKor,400,30);
+				else if(j==singlePartListText[0].length-1)
+					objfs.addSetSize(singlePartMainCenterList[i],singlePartListText[i-1][j]=new JTextField(),defaultKor,510/6,30);
 				else
 					objfs.addSetSize(singlePartMainCenterList[i],singlePartListText[i-1][j]=new JTextField(),defaultKor,450/6,30);
 				singlePartListText[i-1][j].setEnabled(false);
@@ -170,6 +174,7 @@ class singlePartWindow extends JFrame{
 	void mainWindowOption(){
 		UIManager.put("OptionPane.messageFont",message);
 		UIManager.put("OptionPane.buttonFont",messageButton);
+		setIconImage(new ImageIcon(getClass().getResource("../resource/windowTitle.png")).getImage());
 		setSize(960,600);
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -178,9 +183,10 @@ class singlePartWindow extends JFrame{
 	}
 }
 class singlePartUI {
-	static singlePartWindow spw=new singlePartWindow();
+	static singlePartWindow spw=null;
 	int userlevel=0;
 	singlePartUI(int level) {
+		spw=new singlePartWindow();
 		userlevel=level;
 		if(userlevel>=0&&userlevel<9) {
 			singlePartWindow.partComboSouth.setEnabled(false);

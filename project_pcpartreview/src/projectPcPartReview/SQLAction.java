@@ -292,7 +292,7 @@ class loginUser extends loginSQL{
 			else {
 				rs.first();
 				level=rs.getInt(3);
-				loginUI.loginW.dispose();
+				loginUI.loginW.setVisible(false);
 				new singlePartUI(level);
 			}
 		}

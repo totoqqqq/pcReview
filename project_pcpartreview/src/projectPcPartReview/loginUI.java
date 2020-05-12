@@ -85,6 +85,7 @@ class loginWindow extends JFrame{
 	void mainOption(){
 		UIManager.put("OptionPane.messageFont",message);
 		UIManager.put("OptionPane.buttonFont",messageButton);
+		setIconImage(new ImageIcon(getClass().getResource("../resource/windowTitle.png")).getImage());
 		setSize(320,190);
 		setResizable(false);
 		setLocationRelativeTo(null);
@@ -94,10 +95,11 @@ class loginWindow extends JFrame{
 }
 
 public class loginUI {
-	static loginWindow loginW=new loginWindow();
+	static loginWindow loginW=null;
 	loginUI(){
 		loginW=new loginWindow();
 	}
 	public static void main(String[] args) {
+		loginW=new loginWindow();
 	}
 }

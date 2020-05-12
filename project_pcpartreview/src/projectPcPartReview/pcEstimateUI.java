@@ -58,6 +58,7 @@ class pcEstimateWindow extends JFrame{
 		pcEstimateMain.add(pcEstimateMainCenter,BorderLayout.CENTER);
 		UIManager.put("OptionPane.messageFont",message);
 		UIManager.put("OptionPane.buttonFont",messageButton);
+		setIconImage(new ImageIcon(getClass().getResource("../resource/windowTitle.png")).getImage());
 		setSize(640,600);
 		setResizable(false);
 		setLocationRelativeTo(null);
