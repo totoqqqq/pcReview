@@ -69,16 +69,21 @@ class singlePartWindow extends JFrame{
 		singlePartMainNorthBot.add(partComboNorth);
 		singlePartMainNorthObjectOption();
 	}
+	@SuppressWarnings("unused")
 	void singlePartMainNorthObjectOption() {
+		singlePartculmnsAction spa=null;
+		spSearch sp=null;
 		objfs.setSize(partComboNorth,defaultKor,80,30);
-		partComboNorth.addItemListener(new singlePartculmnsAction());
+		partComboNorth.addItemListener(spa=new singlePartculmnsAction());
 		objfs.addSetSize(singlePartMainNorthBot,singlePartSearchTextNorth,defaultKor,580,30);
 		singlePartSearchTextNorth.setToolTipText(partComboNorth.getSelectedItem().toString()+"명을 전체 혹은 일부 입력해주세요");
 		objfs.addSetSize(singlePartMainNorthBot,singlePartSearch,button,80,30);
 		singlePartSearch.setIcon(new ImageIcon(getClass().getResource("../resource/search.png")));
-		singlePartSearch.addActionListener(new spSearch());
+		singlePartSearch.addActionListener(sp=new spSearch());
 	}
+	@SuppressWarnings("unused")
 	void singlePartMainCenterOption(){
+		viewSort vs=null;
 		int count=0;
 		singlePartMainCenterList[0].setBorder(BorderFactory.createEmptyBorder(0,25,0,0));
 		for(String name:columnNameCPU) {
@@ -89,7 +94,7 @@ class singlePartWindow extends JFrame{
 			else
 				objfs.addSetSize(singlePartMainCenterList[0],columnTable[count]=new JButton(name),button,450/6,30);
 			columnNameCPUSort[count]=false;
-			columnTable[count].addActionListener(new viewSort());
+			columnTable[count].addActionListener(vs=new viewSort());
 			count++;
 		}
 		for(int i=1;i<=singlePartListText.length;i++) {
@@ -109,25 +114,28 @@ class singlePartWindow extends JFrame{
 			}
 		}
 	}
+	@SuppressWarnings("unused")
 	void singlePartMainSouthOption() {
+		spIUD siud=null;
+		viewMovePage vmp=null;
 		singlePartMainSouthTop.add(partComboSouth);
 		singlePartMainSouthTop.setBorder(BorderFactory.createEmptyBorder(0,30,30,0));
 		objfs.setSize(partComboSouth,defaultKor,80,30);
 		objfs.addSetSize(singlePartMainSouthTop,singlePartSearchTextSouth,defaultKor,370,31);
 		singlePartSearchTextSouth.setToolTipText(columnNameCPU[0]+"/"+columnNameCPU[1]+"/"+columnNameCPU[2]+"/"+columnNameCPU[3]+"/"+columnNameCPU[4]+"/"+columnNameCPU[5]+" 항목을 /으로 구분하여 입력해주세요.");
 		objfs.addSetSize(singlePartMainSouthTop,singlePartLoad,button,110,30);
-		singlePartLoad.addActionListener(new spIUD());
+		singlePartLoad.addActionListener(siud=new spIUD());
 		singlePartLoad.setIcon(new ImageIcon(getClass().getResource("../resource/load.png")));
 		objfs.addSetSize(singlePartMainSouthTop,singlePartSave,button,110,30);
-		singlePartSave.addActionListener(new spIUD());
+		singlePartSave.addActionListener(siud=new spIUD());
 		singlePartSave.setIcon(new ImageIcon(getClass().getResource("../resource/save.png")));
 		objfs.addSetSize(singlePartMainSouthTop,singlePartDelete,button,110,30);
-		singlePartDelete.addActionListener(new spIUD());
+		singlePartDelete.addActionListener(siud=new spIUD());
 		singlePartDelete.setIcon(new ImageIcon(getClass().getResource("../resource/delete.png")));
 		objfs.addSetSize(singlePartMainSouthBot,singlePartViewLeft,button,60,30);
 		singlePartViewLeft.setIcon(new ImageIcon(getClass().getResource("../resource/previous.png")));
 		singlePartViewLeft.setContentAreaFilled(false);
-		singlePartViewLeft.addActionListener(new viewMovePage());
+		singlePartViewLeft.addActionListener(vmp=new viewMovePage());
 		objfs.addSetSize(singlePartMainSouthBot,singlePartViewPage,new Font("굴림",Font.BOLD,20),60,30);
 		singlePartViewPage.setEnabled(false);
 		singlePartViewPage.setText("1/1");
@@ -139,7 +147,10 @@ class singlePartWindow extends JFrame{
 		singlePartViewRight.setContentAreaFilled(false);
 		singlePartViewRight.addActionListener(new viewMovePage());
 	}
+	@SuppressWarnings("unused")
 	void singlePartMainPanelOption(){
+		singlePartMenuSystem spmsy=null;
+		singPartMenuSetting spmst=null;
 		add(singlePartMain);
 		singlePartMain.add(singlePartMainNorth,BorderLayout.NORTH);
 		singlePartMainNorth.setBackground(Color.WHITE);
@@ -163,12 +174,12 @@ class singlePartWindow extends JFrame{
 		singlePartMenuSetting.setFont(defaultKor);
 		singlePartMenuSystem.add(systemLogout);
 		systemLogout.setFont(defaultKor);
-		systemLogout.addActionListener(new singlePartMenuSystem());
+		systemLogout.addActionListener(spmsy=new singlePartMenuSystem());
 		singlePartMenuSystem.add(systemExit);
 		systemExit.setFont(defaultKor);
-		systemExit.addActionListener(new singlePartMenuSystem());
+		systemExit.addActionListener(spmsy=new singlePartMenuSystem());
 		singlePartMenuSetting.add(settingResetDB);
-		settingResetDB.addActionListener(new singPartMenuSetting());
+		settingResetDB.addActionListener(spmst=new singPartMenuSetting());
 		settingResetDB.setFont(defaultKor);
 	}
 	void mainWindowOption(){
@@ -183,10 +194,9 @@ class singlePartWindow extends JFrame{
 	}
 }
 class singlePartUI {
-	static singlePartWindow spw=null;
+	static singlePartWindow spw=new singlePartWindow();
 	int userlevel=0;
 	singlePartUI(int level) {
-		spw=new singlePartWindow();
 		userlevel=level;
 		if(userlevel>=0&&userlevel<9) {
 			singlePartWindow.partComboSouth.setEnabled(false);

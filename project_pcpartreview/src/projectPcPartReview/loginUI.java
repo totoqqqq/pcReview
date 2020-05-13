@@ -65,7 +65,10 @@ class loginWindow extends JFrame{
 		objfs.addSetSize(loginMCCenter, loginMCCenterBot);
 		loginMainCenterObjectOption();
 	}
+	@SuppressWarnings("unused")
 	void loginMainCenterObjectOption() {
+		loginEnterAction lea=null;
+		loginAction la=null;
 		loginMCLeftTop.add(loginIDLabel);
 		loginIDLabel.setIcon(new ImageIcon(getClass().getResource("../resource/id.png")));
 		loginIDLabel.setToolTipText("ID를 입력하세요.");
@@ -76,10 +79,10 @@ class loginWindow extends JFrame{
 		loginIDText.setToolTipText("ID를 입력하세요.");
 		objfs.addSetSize(loginMCCenterBot, loginPassText, defaultKor, 140, 30);
 		loginPassText.setToolTipText("Password를 입력하세요.");
-		loginPassText.addKeyListener(new loginEnterAction());
+		loginPassText.addKeyListener(lea=new loginEnterAction());
 		objfs.addSetSize(loginMCRight, loginButton, button, 70, 70);
 		loginButton.setMargin(new Insets(10,0,10,0));
-		loginButton.addActionListener(new loginAction());
+		loginButton.addActionListener(la=new loginAction());
 		loginButton.setToolTipText("로그인");
 	}
 	void mainOption(){

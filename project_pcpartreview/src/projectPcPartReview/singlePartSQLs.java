@@ -1,33 +1,10 @@
 package projectPcPartReview;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.lang3.StringUtils;
-class loginSQL {
-	String tablePartName[]= {"cpu","mb","gpu","ram","ssd","hdd"};
-	Connection con=null;
-	PreparedStatement ps=null;
-	static ResultSet rs=null;
-	static int level=0;
-	loginSQL(){
-		try {
-//			String url="jdbc:oracle:thin:@localhost:1521:orcl",user="system",pass="oracle";
-//			집에선 orcl / 학원에선 xe
-			String url="jdbc:oracle:thin:@localhost:1521:xe",user="system",pass="oracle";
-			con=DriverManager.getConnection(url, user, pass);
-		}
-		catch(SQLException e){
-			JOptionPane.showMessageDialog(singlePartUI.spw,"Error_SCO_01","Connection error",JOptionPane.WARNING_MESSAGE,null);
-			//SQL Connection Oracle error
-		}
-	}
-}
 class searchSinglePart extends loginSQL{
 	static String[] ordertext=new String[2];
 	String ordersql="";
@@ -268,7 +245,7 @@ class deleteSinglePart extends loginSQL{
 				ps.setString(1, delPartName[i]);
 				ps.executeQuery();
 			}
-			JOptionPane.showMessageDialog(singlePartUI.spw,singlePartWindow.partComboNorth.getSelectedItem()+" 정보가 "+count+"건 삭제되었습니다.","정보 갱신",JOptionPane.INFORMATION_MESSAGE,null);
+			JOptionPane.showMessageDialog(singlePartUI.spw,singlePartWindow.partComboNorth.getSelectedItem()+" 정보가 "+count+"건 삭제되었습니다.","정보 삭제",JOptionPane.INFORMATION_MESSAGE,null);
 			new reset();
 			new searchSinglePart();
 		}
@@ -278,57 +255,4 @@ class deleteSinglePart extends loginSQL{
 		}
 	}
 }
-class loginUser extends loginSQL{
-	loginUser(String userID,String userPass){
-		try {
-			ps=con.prepareStatement("select * from member where id=? and pass=?",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-			ps.setString(1, userID);
-			ps.setString(2, userPass);
-			rs=ps.executeQuery();
-			if(rs.next()==false) {
-				JOptionPane.showMessageDialog(loginUI.loginW,"입력한 아이디와 암호가 맞는지 확인해 주세요.","login error",JOptionPane.INFORMATION_MESSAGE,null);
-				return;
-			}
-			else {
-				rs.first();
-				level=rs.getInt(3);
-				loginUI.loginW.setVisible(false);
-				new singlePartUI(level);
-			}
-		}
-		catch (SQLException e)
-		{
-			JOptionPane.showMessageDialog(loginUI.loginW,"Error_MTS_01","login error",JOptionPane.WARNING_MESSAGE,null);
-			return;
-			//SQL member table search error
-		}
-	}
-}
-class partNameImport extends loginSQL{
-	partNameImport(int index){
-		try {
-			String[] partList={"CPU","MB","GPU","RAM","SSD","HDD"};
-			ps=con.prepareStatement("select partname from partinfo where parttype='"+partList[index]+"' order by partname",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-			rs=ps.executeQuery();
-			rs.last();
-			int count=rs.getRow();
-			String[] strs=new String[count];
-			rs.first();
-			for(int i=0;i<strs.length;i++) {
-				strs[i]=rs.getString(1);
-				rs.next();
-			}
-			pcEstimateWindow.partList[index]=new JComboBox<String>(strs);			
-		} 
-		catch (SQLException e) {
-			JOptionPane.showMessageDialog(pcEstimateUI.pew,"Error_STS_05","login error",JOptionPane.WARNING_MESSAGE,null);
-			return;
-			//SQL partinfo table search error
-		}		
-	}
-}
-public class SQLAction{
-	public static void main(String[] args) {
-		
-	}
-}
+
