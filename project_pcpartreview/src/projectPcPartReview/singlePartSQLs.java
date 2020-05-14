@@ -127,7 +127,7 @@ class insertSinglePart extends loginSQL{
 			else
 				inserts[i]=insert;
 		}
-		new singPartIntegrity(inserts);
+		new singlePartIntegrity(inserts);
 	}
 }
 class inputSinglePart extends loginSQL{
@@ -220,7 +220,7 @@ class updateSinglePart{
 				else
 					inserts[i]=insert;
 		}
-		new singPartIntegrity(inserts, rsLocation);
+		new singlePartIntegrity(inserts, rsLocation);
 	}
 }
 class deleteSinglePart extends loginSQL{

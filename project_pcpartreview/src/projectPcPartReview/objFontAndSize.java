@@ -2,10 +2,13 @@ package projectPcPartReview;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -24,11 +27,14 @@ public class objFontAndSize{
 		JTextField.setFont(fontSet);
 		JTextField.setPreferredSize(new Dimension(weight,height));
 	}
-	void setSize(JButton JButton,Font fontSet,int weight, int height){
-		JButton.setFont(fontSet);
-		JButton.setPreferredSize(new Dimension(weight,height));
-		JButton.setBackground(Color.LIGHT_GRAY);
-		JButton.setBorderPainted(false);
+	void addMenuItem(JMenu JMenu, JMenuItem JMenuItem, Font fontSet, ActionListener ActionListener) {
+		JMenu.add(JMenuItem);
+		JMenuItem.setFont(fontSet);
+		JMenuItem.addActionListener(ActionListener);
+	}
+	void addSetBorder(JPanel JPanel,JPanel addonJPanel,String BorderlayoutWhere) {
+		JPanel.add(addonJPanel, BorderlayoutWhere);
+		addonJPanel.setBackground(Color.WHITE);
 	}
 	void addSetSize(JPanel JPanel,JButton JButton,Font fontSet,int weight, int height) {
 		JPanel.add(JButton);
@@ -52,11 +58,11 @@ public class objFontAndSize{
 		JPasswordField.setPreferredSize(new Dimension(weight,height));
 		JPasswordField.setBorder(BorderFactory.createLineBorder(new Color(153,204,255)));
 	}
-	void addSetSize(JPanel JPanel,JPanel addonJPanel,Color Color) {
+	void addSetColor(JPanel JPanel,JPanel addonJPanel,Color Color) {
 		JPanel.add(addonJPanel);
 		addonJPanel.setBackground(Color);
 	}
-	void addSetSize(JPanel JPanel,JPanel addonJPanel) {
+	void addSetColor(JPanel JPanel,JPanel addonJPanel) {
 		JPanel.add(addonJPanel);
 		addonJPanel.setBackground(Color.WHITE);
 	}

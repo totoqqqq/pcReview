@@ -2,9 +2,8 @@ package projectPcPartReview;
 
 import javax.swing.JOptionPane;
 
-public class singPartIntegrity {
-	singPartIntegrity(String[] strs,int location){
-		@SuppressWarnings("unused")
+public class singlePartIntegrity {
+	singlePartIntegrity(String[] strs,int location){
 		int check=0;
 		String[] partname=new String[6];
 		for(int i=0;i<partname.length;i++) {
@@ -319,8 +318,7 @@ public class singPartIntegrity {
 			}
 		}
 	}
-	singPartIntegrity(String[] strs) {
-		@SuppressWarnings("unused")
+	singlePartIntegrity(String[] strs) {
 		int check=0;
 		if(singlePartWindow.partComboSouth.getSelectedItem().equals("CPU")){
 			try {

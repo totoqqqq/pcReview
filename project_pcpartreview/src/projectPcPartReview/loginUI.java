@@ -56,13 +56,13 @@ class loginWindow extends JFrame{
 		loginTitle.setFont(titleKor);
 	}
 	void loginMainCenterOption() {
-		objfs.addSetSize(loginMainCenter, loginMCLeft);
-		objfs.addSetSize(loginMainCenter, loginMCCenter);
-		objfs.addSetSize(loginMainCenter, loginMCRight);
-		objfs.addSetSize(loginMCLeft, loginMCLeftTop);
-		objfs.addSetSize(loginMCLeft, loginMCLeftBot);
-		objfs.addSetSize(loginMCCenter, loginMCCenterTop);
-		objfs.addSetSize(loginMCCenter, loginMCCenterBot);
+		objfs.addSetColor(loginMainCenter, loginMCLeft);
+		objfs.addSetColor(loginMainCenter, loginMCCenter);
+		objfs.addSetColor(loginMainCenter, loginMCRight);
+		objfs.addSetColor(loginMCLeft, loginMCLeftTop);
+		objfs.addSetColor(loginMCLeft, loginMCLeftBot);
+		objfs.addSetColor(loginMCCenter, loginMCCenterTop);
+		objfs.addSetColor(loginMCCenter, loginMCCenterBot);
 		loginMainCenterObjectOption();
 	}
 	@SuppressWarnings("unused")

@@ -239,7 +239,11 @@ class singlePartculmnsAction implements ItemListener{
 }
 class singlePartMenuSystem implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
-		if((JMenuItem)e.getSource()==singlePartWindow.systemLogout) {
+		if((JMenuItem)e.getSource()==singlePartWindow.systemEstimate) {
+			new pcEstimateUI();
+			singlePartUI.spw.setVisible(false);
+		}
+		else if((JMenuItem)e.getSource()==singlePartWindow.systemLogout) {
 			loginWindow.loginIDText.setText("");
 			loginWindow.loginPassText.setText("");
 			loginWindow.loginIDText.requestFocus();
@@ -248,7 +252,7 @@ class singlePartMenuSystem implements ActionListener{
 			singlePartUI.spw.setVisible(false);
 			return;
 		}
-		if((JMenuItem)e.getSource()==singlePartWindow.systemExit)
+		else if((JMenuItem)e.getSource()==singlePartWindow.systemExit)
 			System.exit(0);
 		return;
 	}	

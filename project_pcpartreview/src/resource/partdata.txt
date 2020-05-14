@@ -3,7 +3,7 @@ drop table partinfo cascade constraints purge
 drop table pcestimate cascade constraints purge
 create table member(id varchar2(20) primary key,pass varchar2(20) not null,levels number(2) not null)
 create table partinfo(parttype varchar2(10) not null,partname varchar2(60) primary key,maker varchar2(20) not null,info1 varchar2(16) not null,info2 varchar2(16) not null,info3 varchar2(16) not null,info4 varchar2(16) not null)
-create table pcestimate(id varchar2(20) not null,name varchar2(20) not null,dates varchar2(20), CPU varchar2(60) not null, MB varchar2(60) not null, GPU varchar2(60) not null,RAM varchar2(60) not null, SSD varchar2(60) not null,HDD varchar2(60) not null, constraint partstimate_FK foreign key(id) references member(id) on delete cascade)
+create table pcestimate(id varchar2(20) not null,name varchar2(20) not null,inputdates varchar2(20) not null,updatedates varchar2(20) not null,CPU varchar2(60) not null, MB varchar2(60) not null, GPU varchar2(60) not null,RAM varchar2(60) not null, SSD varchar2(60) not null,HDD varchar2(60) not null, constraint partstimate_FK foreign key(id) references member(id) on delete cascade)
 insert into member values('admin','oracle',9)
 insert into member values('guest','1234',1)
 insert into partinfo values('CPU','Intel corei3-9100F(Coffee Lake-R)','Intel','4','3.6','1151v2','65')

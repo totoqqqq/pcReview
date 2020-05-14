@@ -15,48 +15,49 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.UIManager;
 
-class pcEsimateDialog extends JDialog{
+class pcEstimateDialog extends JDialog{
 	private static final long serialVersionUID = 1L;
 	JPanel pcEsimateDialogMain=new JPanel(new BorderLayout()),pEDMNorth=new JPanel(new FlowLayout(FlowLayout.CENTER)),
-			pEDMCenter=new JPanel(new GridLayout(1,2)),pEDMCenterLeft=new JPanel(new FlowLayout(FlowLayout.CENTER)),
-			pEDMCenterRight=new JPanel(new FlowLayout(FlowLayout.CENTER));
+			pEDMCenter=new JPanel(new FlowLayout(FlowLayout.CENTER)),pEDMSouth=new JPanel(new FlowLayout(FlowLayout.CENTER));
 	JButton esimateLoad=new JButton("불러오기"),esimateDelete=new JButton("삭제");
 	Font defaultKor=setFonts.defaultK,titleKor=setFonts.title,button=setFonts.button,message=setFonts.massage,
 			messageButton=setFonts.massageButton;
 	objFontAndSize objfs=new objFontAndSize();
-	JLabel title=new JLabel("견적 불러오기");
-	String[] pcColumns={"저장일자","저장 이름"};
-	String[][] pcTables={{" "},{" "}};
-	JTable pcEsimateView=new JTable(pcTables,pcColumns);
-	pcEsimateDialog(){
+	JLabel title=new JLabel("견적 불러오기");	
+	pcEstimateDialog(){
 		super(pcEstimateUI.pew,"저장된 견적정보 확인",true);
 		pcEsimateDialogMainNorth();
 		pcEsimateDialogMainCenter();
+		pcEsimateDialogMainSouth();
 		mainDialogOption();
 	}
 	void pcEsimateDialogMainNorth() {
 		pEDMNorth.add(title);
 		pEDMNorth.setBackground(Color.WHITE);
-		pEDMNorth.setBorder(BorderFactory.createEmptyBorder(30,0,30,0));
+		pEDMNorth.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));
 		title.setFont(titleKor);
 		title.setForeground(new Color(86,162,255));
 	}
 	void pcEsimateDialogMainCenter() {
-		objfs.addSetSize(pEDMCenter, pEDMCenterLeft);
-		objfs.addSetSize(pEDMCenter, pEDMCenterRight);
-		pEDMCenterLeft.add(pcEsimateView);
-		objfs.addSetSize(pEDMCenterRight, esimateLoad, button, 80, 30);
-		objfs.addSetSize(pEDMCenterRight, esimateDelete, button, 80, 30);
+		pEDMCenter.add(pcEstimateWindow.reviewsave);
+		objfs.setSize(pcEstimateWindow.reviewsave,defaultKor,600,30);
+	}
+	void pcEsimateDialogMainSouth() {
+		pcEstiamateLoad pel=new pcEstiamateLoad();
+		objfs.addSetSize(pEDMSouth, esimateLoad, button, 80, 30);
+		esimateLoad.addActionListener(pel);
+		objfs.addSetSize(pEDMSouth, esimateDelete, button, 80, 30);
+		pEDMSouth.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));
 	}
 	void mainDialogOption(){
 		add(pcEsimateDialogMain);
-		pcEsimateDialogMain.add(pEDMNorth,BorderLayout.NORTH);
-		pcEsimateDialogMain.add(pEDMCenter,BorderLayout.CENTER);
+		objfs.addSetBorder(pcEsimateDialogMain,pEDMNorth,BorderLayout.NORTH);
+		objfs.addSetBorder(pcEsimateDialogMain,pEDMCenter,BorderLayout.CENTER);
+		objfs.addSetBorder(pcEsimateDialogMain,pEDMSouth,BorderLayout.SOUTH);
 		setIconImage(new ImageIcon(getClass().getResource("../resource/windowTitle.png")).getImage());
-		setSize(320,500);
+		setSize(610,220);
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -71,13 +72,14 @@ class pcEstimateWindow extends JFrame{
 	static JButton save=new JButton("견적 저장"),check=new JButton("호환성 확인"),load=new JButton("견적 불러오기"), print=new JButton("견적 인쇄");
 	@SuppressWarnings("rawtypes")
 	static JComboBox[] partList=new JComboBox[6];
+	static JComboBox<String> reviewsave=new JComboBox<String>();
 	JLabel[] partListName=new JLabel[6];
-	String[] tableName={"CPU","MB","GPU","RAM","SSD","HDD"},partname=null;
+	String[] tableName={"CPU","MB","GPU","RAM","SSD","HDD"};
 	JLabel title=new JLabel(new ImageIcon(getClass().getResource("../resource/pcEstimateTitle.png")));
 	Font defaultKor=setFonts.defaultK,titleKor=setFonts.title,button=setFonts.button,message=setFonts.massage,
 			messageButton=setFonts.massageButton;
 	objFontAndSize objfs=new objFontAndSize();
-	static int userlevel=0;
+	static Boolean savemode=true;
 	pcEstimateWindow(){
 		super("PC견적");
 		pcEstimateWindowMainNorthOption();
@@ -91,9 +93,9 @@ class pcEstimateWindow extends JFrame{
 		pcEstimateMainNorth.setBorder(BorderFactory.createEmptyBorder(30,0,30,0));
 	}
 	void pcEstimateWindowMainCenterOption() {
-		objfs.addSetSize(pcEstimateMainCenter, pcEstimateMainCenterRow);
+		objfs.addSetColor(pcEstimateMainCenter, pcEstimateMainCenterRow);
 		for(int i=0;i<pcEstimateMCList.length;i++) {
-			objfs.addSetSize(pcEstimateMainCenterRow, pcEstimateMCList[i]=new JPanel(new FlowLayout(FlowLayout.CENTER)));
+			objfs.addSetColor(pcEstimateMainCenterRow, pcEstimateMCList[i]=new JPanel(new FlowLayout(FlowLayout.CENTER)));
 			pcEstimateMCList[i].add(partListName[i]=new JLabel(tableName[i]));
 			partListName[i].setFont(defaultKor);
 			partListName[i].setPreferredSize(new Dimension(60,20));
@@ -116,9 +118,9 @@ class pcEstimateWindow extends JFrame{
 	}
 	void mainWindowOption(){
 		add(pcEstimateMain);
-		pcEstimateMain.add(pcEstimateMainNorth,BorderLayout.NORTH);
-		pcEstimateMain.add(pcEstimateMainCenter,BorderLayout.CENTER);
-		pcEstimateMain.add(pcEstimateMainSouth,BorderLayout.SOUTH);
+		objfs.addSetBorder(pcEstimateMain,pcEstimateMainNorth,BorderLayout.NORTH);
+		objfs.addSetBorder(pcEstimateMain,pcEstimateMainCenter,BorderLayout.CENTER);
+		objfs.addSetBorder(pcEstimateMain,pcEstimateMainSouth,BorderLayout.SOUTH);
 		UIManager.put("OptionPane.messageFont",message);
 		UIManager.put("OptionPane.buttonFont",messageButton);
 		setIconImage(new ImageIcon(getClass().getResource("../resource/windowTitle.png")).getImage());
@@ -129,10 +131,10 @@ class pcEstimateWindow extends JFrame{
 		setVisible(true);
 	}
 }
-public class pcEstimateUI {
-	static pcEstimateWindow pew=null;
-	static pcEsimateDialog ped=null;
-	public static void main(String[] args) {
-		pew=new pcEstimateWindow();
-	}
+class pcEstimateUI {
+	static pcEstimateWindow pew=new pcEstimateWindow();
+
+}
+class pcEstimaDialog{
+	static pcEstimateDialog ped=new pcEstimateDialog();
 }

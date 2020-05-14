@@ -49,7 +49,7 @@ class singlePartWindow extends JFrame{
 	JMenuBar singlePartMenu=new JMenuBar();
 	static JMenu singlePartMenuSystem=new JMenu("시스템"),singlePartMenuSetting=new JMenu("설정");
 	static JMenuItem settingResetDB=new JMenuItem("초기화(R)",KeyEvent.VK_R),systemLogout=new JMenuItem("로그아웃(T)",KeyEvent.VK_T),
-			systemExit=new JMenuItem("종료(X)",KeyEvent.VK_X);
+			systemExit=new JMenuItem("종료(X)",KeyEvent.VK_X), systemEstimate=new JMenuItem("PC견적(E)",KeyEvent.VK_E);
 	Font defaultKor=setFonts.defaultK,titleKor=setFonts.title,button=setFonts.button,message=setFonts.massage,
 			messageButton=setFonts.massageButton;
 	objFontAndSize objfs=new objFontAndSize();
@@ -147,23 +147,19 @@ class singlePartWindow extends JFrame{
 		singlePartViewRight.setContentAreaFilled(false);
 		singlePartViewRight.addActionListener(new viewMovePage());
 	}
-	@SuppressWarnings("unused")
 	void singlePartMainPanelOption(){
-		singlePartMenuSystem spmsy=null;
-		singPartMenuSetting spmst=null;
+		singlePartMenuSystem spmsy=new singlePartMenuSystem();
+		singPartMenuSetting spmst=new singPartMenuSetting();
 		add(singlePartMain);
-		singlePartMain.add(singlePartMainNorth,BorderLayout.NORTH);
-		singlePartMainNorth.setBackground(Color.WHITE);
-		singlePartMain.add(singlePartMainCenter,BorderLayout.CENTER);
-		singlePartMainCenter.setBackground(Color.WHITE);
-		singlePartMain.add(singlePartMainSouth,BorderLayout.SOUTH);
-		singlePartMainSouth.setBackground(Color.WHITE);
-		objfs.addSetSize(singlePartMainNorth,singlePartMainNorthTop);
-		objfs.addSetSize(singlePartMainNorth,singlePartMainNorthBot);
+		objfs.addSetBorder(singlePartMain, singlePartMainNorth, BorderLayout.NORTH);
+		objfs.addSetBorder(singlePartMain, singlePartMainCenter, BorderLayout.CENTER);
+		objfs.addSetBorder(singlePartMain, singlePartMainSouth, BorderLayout.SOUTH);
+		objfs.addSetColor(singlePartMainNorth,singlePartMainNorthTop);
+		objfs.addSetColor(singlePartMainNorth,singlePartMainNorthBot);
 		for(int i=0;i<singlePartMainCenterList.length;i++)
-			objfs.addSetSize(singlePartMainCenter, singlePartMainCenterList[i]=new JPanel(new FlowLayout(FlowLayout.CENTER)), Color.WHITE);
-		objfs.addSetSize(singlePartMainSouth,singlePartMainSouthTop);
-		objfs.addSetSize(singlePartMainSouth,singlePartMainSouthBot);
+			objfs.addSetColor(singlePartMainCenter, singlePartMainCenterList[i]=new JPanel(new FlowLayout(FlowLayout.CENTER)), Color.WHITE);
+		objfs.addSetColor(singlePartMainSouth,singlePartMainSouthTop);
+		objfs.addSetColor(singlePartMainSouth,singlePartMainSouthBot);
 		setJMenuBar(singlePartMenu);
 		singlePartMenu.setBackground(new Color(255,255,255));
 		singlePartMenu.setForeground(new Color(255,255,255));
@@ -172,15 +168,11 @@ class singlePartWindow extends JFrame{
 		singlePartMenu.add(singlePartMenuSetting);
 		singlePartMenuSystem.setFont(defaultKor);
 		singlePartMenuSetting.setFont(defaultKor);
-		singlePartMenuSystem.add(systemLogout);
-		systemLogout.setFont(defaultKor);
-		systemLogout.addActionListener(spmsy=new singlePartMenuSystem());
-		singlePartMenuSystem.add(systemExit);
-		systemExit.setFont(defaultKor);
-		systemExit.addActionListener(spmsy=new singlePartMenuSystem());
-		singlePartMenuSetting.add(settingResetDB);
-		settingResetDB.addActionListener(spmst=new singPartMenuSetting());
-		settingResetDB.setFont(defaultKor);
+		objfs.addMenuItem(singlePartMenuSystem, systemEstimate, defaultKor, spmsy);
+		singlePartMenuSystem.addSeparator();
+		objfs.addMenuItem(singlePartMenuSystem, systemLogout, defaultKor, spmsy);
+		objfs.addMenuItem(singlePartMenuSystem, systemExit, defaultKor, spmsy);
+		objfs.addMenuItem(singlePartMenuSetting, settingResetDB, defaultKor, spmst);
 	}
 	void mainWindowOption(){
 		UIManager.put("OptionPane.messageFont",message);
