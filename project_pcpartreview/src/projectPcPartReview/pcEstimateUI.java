@@ -17,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-class pcEstimateDialog extends JDialog{
+class pcEstimateDialog extends JFrame{
 	private static final long serialVersionUID = 1L;
 	JPanel pcEsimateDialogMain=new JPanel(new BorderLayout()),pEDMNorth=new JPanel(new FlowLayout(FlowLayout.CENTER)),
 			pEDMCenter=new JPanel(new FlowLayout(FlowLayout.CENTER)),pEDMSouth=new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -27,7 +27,8 @@ class pcEstimateDialog extends JDialog{
 	objFontAndSize objfs=new objFontAndSize();
 	JLabel title=new JLabel("견적 불러오기");	
 	pcEstimateDialog(){
-		super(pcEstimateUI.pew,"저장된 견적정보 확인",true);
+//		super(pcEstimateUI.pew,"저장된 견적정보 확인",true);
+		super("저장된 견적 정보 확인");
 		pcEsimateDialogMainNorth();
 		pcEsimateDialogMainCenter();
 		pcEsimateDialogMainSouth();
@@ -46,9 +47,11 @@ class pcEstimateDialog extends JDialog{
 	}
 	void pcEsimateDialogMainSouth() {
 		pcEstiamateLoad pel=new pcEstiamateLoad();
+		pcEstiamateDelete ped=new pcEstiamateDelete();
 		objfs.addSetSize(pEDMSouth, esimateLoad, button, 80, 30);
 		esimateLoad.addActionListener(pel);
 		objfs.addSetSize(pEDMSouth, esimateDelete, button, 80, 30);
+		esimateDelete.addActionListener(ped);
 		pEDMSouth.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));
 	}
 	void mainDialogOption(){
@@ -59,6 +62,7 @@ class pcEstimateDialog extends JDialog{
 		setIconImage(new ImageIcon(getClass().getResource("../resource/windowTitle.png")).getImage());
 		setSize(610,220);
 		setResizable(false);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
@@ -137,4 +141,7 @@ class pcEstimateUI {
 }
 class pcEstimaDialog{
 	static pcEstimateDialog ped=new pcEstimateDialog();
+	static void close() {
+		ped.setVisible(false);
+	}
 }

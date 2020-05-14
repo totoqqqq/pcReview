@@ -59,8 +59,8 @@ class pcEstimateInput extends loginSQL{
 			ps=con.prepareStatement("insert into pcestimate values(?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1,userName);
 			ps.setString(2,name);
-			ps.setString(3, new SimpleDateFormat("yyyy.MM.dd hh:mm:ss").format(System.currentTimeMillis()).toString());
-			ps.setString(4, new SimpleDateFormat("yyyy.MM.dd hh:mm:ss").format(System.currentTimeMillis()).toString());
+			ps.setString(3, new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(System.currentTimeMillis()).toString());
+			ps.setString(4, new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(System.currentTimeMillis()).toString());
 			for(int i=0;i<pcEstimateWindow.partList.length;i++) {
 				ps.setString(i+5, pcEstimateWindow.partList[i].getSelectedItem().toString());
 			}
@@ -80,22 +80,24 @@ class pcEstimateUpdate extends loginSQL{
 	pcEstimateUpdate(String name){
 		try {
 			if(name.equals(""))
-				name=rs.getString(3);
-			ps=con.prepareStatement("update pcestimate set name=?,updatedate=?,cpu=?,mb=?,gpu=?,ram=?.ssd=?,hdd=? where id='"+userName+"' and inputdates='"+rs.getString(1)+"'");
+				name=rs.getString(2);
+			ps=con.prepareStatement("update pcestimate set name=?,updatedates=?,cpu=?,mb=?,gpu=?,ram=?,ssd=?,hdd=? where id='"+userName+"' and inputdates='"+rs.getString(3)+"'");
 			ps.setString(1,name);
-			ps.setString(2,new SimpleDateFormat("yyyy.MM.dd hh:mm:ss").format(System.currentTimeMillis()).toString());
+			ps.setString(2,new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(System.currentTimeMillis()).toString());
 			for(int i=0;i<pcEstimateWindow.partList.length;i++) {
 				ps.setString(i+3, pcEstimateWindow.partList[i].getSelectedItem().toString());
 			}
 			int check=ps.executeUpdate();
-			if(check==1)
+			if(check==1) {
 				JOptionPane.showMessageDialog(pcEstimateUI.pew,"견적이 갱신되었습니다.","견적 갱신",JOptionPane.INFORMATION_MESSAGE,null);
+				pcEstimateWindow.savemode=true;
+			}
 			else
 				JOptionPane.showMessageDialog(pcEstimateUI.pew,"Error_STU_05","insert error",JOptionPane.WARNING_MESSAGE,null);
 				//SQL pcEstimate table error
 		} 
 		catch (SQLException e) {
-			
+			e.printStackTrace();
 		}
 	}
 }
@@ -105,11 +107,29 @@ class pcEstimateImport extends loginSQL{
 			ps=con.prepareStatement("select * from pcestimate where id='"+userName+"' and inputdates='"+inputDates+"'",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 			rs=ps.executeQuery();
 			rs.first();
-			for(int i=0;i<pcEstimateWindow.partList.length;i++) {
+			for(int i=0;i<pcEstimateWindow.partList.length;i++) 
 				pcEstimateWindow.partList[i].setSelectedItem(rs.getString(i+5));
-				pcEstimateWindow.savemode=false;
-			}
+			pcEstimateWindow.savemode=false;
 		} 
+		catch (SQLException e) {
+	
+			e.printStackTrace();
+		}	
+	}
+}
+class pcEstimateDelete extends loginSQL{
+	pcEstimateDelete(String inputDates){
+		try {
+			ps=con.prepareStatement("delete from pcestimate where id='"+userName+"' and inputdates='"+inputDates+"'",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			int check=ps.executeUpdate();
+			if(check==1) {
+				JOptionPane.showMessageDialog(pcEstimateUI.pew,"견적이 삭제되었습니다.","견적 갱신",JOptionPane.INFORMATION_MESSAGE,null);
+				pcEstimateWindow.savemode=true;
+			}
+			else
+				JOptionPane.showMessageDialog(pcEstimateUI.pew,"Error_STD_05","insert error",JOptionPane.WARNING_MESSAGE,null);
+				//SQL pcEstimate table error
+		}
 		catch (SQLException e) {
 	
 			e.printStackTrace();

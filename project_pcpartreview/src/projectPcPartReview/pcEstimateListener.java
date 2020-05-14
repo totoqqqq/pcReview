@@ -8,10 +8,11 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 class pcEstimateAction extends loginSQL implements ActionListener {
+	static pcEstimateDialog peds=null;
 	public void actionPerformed(ActionEvent e) {
 		if((JButton)e.getSource()==pcEstimateWindow.load) {
 			new pcEsimateDialogReview(userName);
-			new pcEstimaDialog();
+			new pcEstimateDialog();
 		}
 		else if((JButton)e.getSource()==pcEstimateWindow.save) {
 			if(pcEstimateWindow.savemode==true) {
@@ -28,8 +29,16 @@ class pcEstimateAction extends loginSQL implements ActionListener {
 class pcEstiamateLoad implements ActionListener{
 	@SuppressWarnings("rawtypes")
 	public void actionPerformed(ActionEvent e) {
-		JComboBox jcb=pcEstimateWindow.reviewsave;
-		String inputtime=jcb.getSelectedItem().toString().substring(jcb.getSelectedItem().toString().indexOf(":")+2,jcb.getSelectedItem().toString().indexOf("¼ö")-2);
+		String inputtime=pcEstimateWindow.reviewsave.getSelectedItem().toString().substring(pcEstimateWindow.reviewsave.getSelectedItem().toString().indexOf(":")+2,pcEstimateWindow.reviewsave.getSelectedItem().toString().indexOf("¼ö")-2);
 		new pcEstimateImport(inputtime);
+		pcEstimaDialog.close();
+	}
+}
+class pcEstiamateDelete implements ActionListener{
+	@SuppressWarnings("rawtypes")
+	public void actionPerformed(ActionEvent e) {
+		String inputtime=pcEstimateWindow.reviewsave.getSelectedItem().toString().substring(pcEstimateWindow.reviewsave.getSelectedItem().toString().indexOf(":")+2,pcEstimateWindow.reviewsave.getSelectedItem().toString().indexOf("¼ö")-2);
+		new pcEstimateDelete(inputtime);
+		pcEstimaDialog.close();
 	}
 }
