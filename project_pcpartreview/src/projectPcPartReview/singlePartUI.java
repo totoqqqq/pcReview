@@ -186,10 +186,20 @@ class singlePartWindow extends JFrame{
 	}
 }
 class singlePartUI {
-	static singlePartWindow spw=new singlePartWindow();
-	int userlevel=0;
-	singlePartUI(int level) {
-		userlevel=level;
+	static singlePartWindow spw;
+	void close() {
+		spw.setVisible(false);
+	}
+	void create(int level) {
+		spw=new singlePartWindow();
+		singlePartSetting(level);
+	}
+	void open(int level) {
+		spw.setVisible(true);
+		singlePartSetting(level);
+	}
+	void singlePartSetting(int level) {
+		int userlevel=level;
 		if(userlevel>=0&&userlevel<9) {
 			singlePartWindow.partComboSouth.setEnabled(false);
 			singlePartWindow.singlePartSearchTextSouth.setEnabled(false);
@@ -198,6 +208,7 @@ class singlePartUI {
 			singlePartWindow.singlePartDelete.setEnabled(false);
 			singlePartWindow.singlePartTitle.setIcon(new ImageIcon(getClass().getResource("../resource/singlePartGuestTitle.png")));
 			singlePartWindow.singlePartMenuSetting.setVisible(false);
+			spw.setLocationRelativeTo(null);
 		}
 		else if(userlevel==9) {
 			singlePartWindow.partComboSouth.setEnabled(true);
@@ -207,10 +218,10 @@ class singlePartUI {
 			singlePartWindow.singlePartDelete.setEnabled(true);
 			singlePartWindow.singlePartTitle.setIcon(new ImageIcon(getClass().getResource("../resource/singlePartAdminTitle.png")));
 			singlePartWindow.singlePartMenuSetting.setVisible(true);
+			spw.setLocationRelativeTo(null);
 		}
 		else {
 			System.exit(0);
 		}
-		singlePartUI.spw.setVisible(true);
 	}
 }

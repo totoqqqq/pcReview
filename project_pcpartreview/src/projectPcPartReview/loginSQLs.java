@@ -41,8 +41,11 @@ class loginUser extends loginSQL{
 				rs.first();
 				level=rs.getInt(3);
 				userName=rs.getString(1);
-				loginUI.loginW.setVisible(false);
-				new singlePartUI(level);
+				loginUI.close();
+				if(singlePartUI.spw==null)
+					new singlePartUI().create(level);
+				else
+					new singlePartUI().open(level);
 			}
 		}
 		catch (SQLException e)

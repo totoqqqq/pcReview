@@ -1,5 +1,6 @@
 package projectPcPartReview;
 
+import java.awt.Font;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -31,9 +32,11 @@ class partNameImport extends loginSQL{
 	}
 }
 class pcEsimateDialogReview extends loginSQL{
+	objFontAndSize objfs=new objFontAndSize();
+	Font defaultKor=setFonts.defaultK;
 	pcEsimateDialogReview(String id){
 		try {
-			ps=con.prepareStatement("select inputdates,updatedates,name from pcestimate where id='"+id+"' order by updatedates",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			ps=con.prepareStatement("select inputdates,updatedates,name from pcestimate where id='"+id+"' order by updatedates DESC",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 			rs=ps.executeQuery();
 			if(rs.next()==false) {
 				return;
@@ -46,7 +49,10 @@ class pcEsimateDialogReview extends loginSQL{
 				viewName[i]="저장 일 : "+rs.getString(1)+"  수정 일 : "+rs.getString(2)+"  저장 명 : "+rs.getString(3);
 				rs.next();
 			}
-			pcEstimateWindow.reviewsave=new JComboBox<String>(viewName);
+			pcEstimateDialog.pEDMCenter.remove(pcEstimateDialog.reviewsave);
+			pcEstimateDialog.reviewsave=new JComboBox<String>(viewName);
+			pcEstimateDialog.pEDMCenter.add(pcEstimateDialog.reviewsave);
+			objfs.setSize(pcEstimateDialog.reviewsave,defaultKor,600,30);
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -56,6 +62,14 @@ class pcEsimateDialogReview extends loginSQL{
 class pcEstimateInput extends loginSQL{
 	pcEstimateInput(String name){
 		try {
+			if(name==null) {
+				JOptionPane.showMessageDialog(pcEstimateUI.pew,"견적 저장을 취소하였습니다.","견적 저장",JOptionPane.INFORMATION_MESSAGE,null);
+				return;
+			}
+			else if(name.equals("")) {
+				JOptionPane.showMessageDialog(pcEstimateUI.pew,"견적 명을 입력하세요.","견적 저장",JOptionPane.INFORMATION_MESSAGE,null);
+				return;
+			}
 			ps=con.prepareStatement("insert into pcestimate values(?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1,userName);
 			ps.setString(2,name);
@@ -79,7 +93,11 @@ class pcEstimateInput extends loginSQL{
 class pcEstimateUpdate extends loginSQL{
 	pcEstimateUpdate(String name){
 		try {
-			if(name.equals(""))
+			if(name==null) {
+				JOptionPane.showMessageDialog(pcEstimateUI.pew,"견적이 갱신을 취소하였습니다.","견적 갱신",JOptionPane.INFORMATION_MESSAGE,null);
+				return;
+			}
+			else if(name.equals(""))
 				name=rs.getString(2);
 			ps=con.prepareStatement("update pcestimate set name=?,updatedates=?,cpu=?,mb=?,gpu=?,ram=?,ssd=?,hdd=? where id='"+userName+"' and inputdates='"+rs.getString(3)+"'");
 			ps.setString(1,name);

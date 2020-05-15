@@ -255,4 +255,3 @@ class deleteSinglePart extends loginSQL{
 		}
 	}
 }
-

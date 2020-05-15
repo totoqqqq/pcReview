@@ -98,11 +98,19 @@ class loginWindow extends JFrame{
 }
 
 public class loginUI {
-	static loginWindow loginW=null;
-	loginUI(){
+	static loginWindow loginW;
+	static void close() {
+		loginW.setVisible(false);
+	}
+	static void create() {
 		loginW=new loginWindow();
 	}
+	static void open() {
+		loginW.setVisible(true);
+		loginW.setLocationRelativeTo(null);
+	}
 	public static void main(String[] args) {
-		loginW=new loginWindow();
+		if(loginW==null)
+			create();
 	}
 }
