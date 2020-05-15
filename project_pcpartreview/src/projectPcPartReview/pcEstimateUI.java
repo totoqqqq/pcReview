@@ -53,8 +53,10 @@ class pcEstimateDialog extends JFrame{
 		pcEstiamateLoad pel=new pcEstiamateLoad();
 		pcEstiamateDelete ped=new pcEstiamateDelete();
 		objfs.addSetSize(pEDMSouth, esimateLoad, button, 80, 30);
+		esimateLoad.setIcon(new ImageIcon(getClass().getResource("../resource/load.png")));
 		esimateLoad.addActionListener(pel);
 		objfs.addSetSize(pEDMSouth, esimateDelete, button, 80, 30);
+		esimateDelete.setIcon(new ImageIcon(getClass().getResource("../resource/delete.png")));
 		esimateDelete.addActionListener(ped);
 		pEDMSouth.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));
 	}
