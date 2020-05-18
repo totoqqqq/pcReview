@@ -74,13 +74,8 @@ class rsdataSinglePart{
 					}
 				}
 				do{
-					views[count][0][setPage]=rs.getString(1);
-					views[count][1][setPage]=rs.getString(2);
-					views[count][2][setPage]=rs.getString(3);
-					views[count][3][setPage]=rs.getString(4);
-					views[count][4][setPage]=rs.getString(5);
-					views[count][5][setPage]=rs.getString(6);
-					views[count][6][setPage]=rs.getString(7);
+					for(int i=0;i<views[0].length;i++)
+						views[count][i][setPage]=rs.getString(i+1);
 					count++;
 					if(count==6) {
 						count=0;

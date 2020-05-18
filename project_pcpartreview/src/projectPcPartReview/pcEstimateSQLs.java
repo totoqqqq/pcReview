@@ -39,6 +39,8 @@ class pcEsimateDialogReview extends loginSQL{
 			ps=con.prepareStatement("select inputdates,updatedates,name from pcestimate where id='"+id+"' order by updatedates DESC",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 			rs=ps.executeQuery();
 			if(rs.next()==false) {
+				JOptionPane.showMessageDialog(pcEstimateUI.pew, "저장된 견적이 없습니다.","견적 불러오기",JOptionPane.WARNING_MESSAGE);
+				pcEstimateAction.mod=1;
 				return;
 			}
 			rs.last();

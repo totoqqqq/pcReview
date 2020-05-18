@@ -122,7 +122,7 @@ class singlePartWindow extends JFrame{
 		singlePartMainSouthTop.setBorder(BorderFactory.createEmptyBorder(0,30,30,0));
 		objfs.setSize(partComboSouth,defaultKor,80,30);
 		objfs.addSetSize(singlePartMainSouthTop,singlePartSearchTextSouth,defaultKor,370,31);
-		singlePartSearchTextSouth.setToolTipText(columnNameCPU[0]+"/"+columnNameCPU[1]+"/"+columnNameCPU[2]+"/"+columnNameCPU[3]+"/"+columnNameCPU[4]+"/"+columnNameCPU[5]+" 항목을 /으로 구분하여 입력해주세요.");
+		singlePartSearchTextSouth.setToolTipText(columnNameCPU[1]+"/"+columnNameCPU[2]+"/"+columnNameCPU[3]+"/"+columnNameCPU[4]+"/"+columnNameCPU[5]+"/"+columnNameCPU[6]+" 항목을 /으로 구분하여 입력해주세요.");
 		objfs.addSetSize(singlePartMainSouthTop,singlePartLoad,button,110,30);
 		singlePartLoad.addActionListener(siud=new spIUD());
 		singlePartLoad.setIcon(new ImageIcon(getClass().getResource("../resource/load.png")));

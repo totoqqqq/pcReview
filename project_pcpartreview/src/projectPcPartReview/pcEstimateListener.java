@@ -9,14 +9,20 @@ import javax.swing.JOptionPane;
 
 class pcEstimateAction extends loginSQL implements ActionListener {
 	static pcEstimateDialog peds=null;
+	static int mod=0;
 	public void actionPerformed(ActionEvent e) {
 		if((JButton)e.getSource()==pcEstimateWindow.load) {
 			new pcEsimateDialogReview(userName);
+			if(mod==0) {
 			if(pcEstimaDialog.ped==null)
 				pcEstimaDialog.create();
-			
 			else
 				pcEstimaDialog.open();
+			}
+			else {
+				mod=0;
+				return;
+			}
 		}
 		else if((JButton)e.getSource()==pcEstimateWindow.save) {
 			if(pcEstimateWindow.savemode==true) {
