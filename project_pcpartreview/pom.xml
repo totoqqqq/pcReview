@@ -2,10 +2,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>project_pcpartreview</groupId>
   <artifactId>project_pcpartreview</artifactId>
-  <version>1.2.1-SNAPSHOT</version>
+  <version>1.2.6 - release</version>
   <name>pcpartreview</name>
   
   <build>
+  	<defaultGoal>install</defaultGoal>
     <sourceDirectory>src</sourceDirectory>
     <resources>
       <resource>
