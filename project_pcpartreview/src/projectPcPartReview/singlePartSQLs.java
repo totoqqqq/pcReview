@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 class searchSinglePart extends loginSQL{
 	static String[] ordertext=new String[2];
 	String ordersql="";
